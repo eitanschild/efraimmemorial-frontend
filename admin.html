@@ -213,7 +213,7 @@
 
 <script>
   async function loadAllKtavim() {
-    const res = await fetch('http://https://efraimemorial-production.up.railway.app/api/ktavim');
+    const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
     const data = await res.json();
     const list = document.getElementById('ktavList');
     list.innerHTML = '';
@@ -236,7 +236,7 @@
   const confirmed = confirm("האם אתה בטוח שברצונך למחוק את הכתב?");
   if (!confirmed) return;
 
-  const res = await fetch(`http://https://efraimemorial-production.up.railway.app/api/ktavim/${index}`, {
+  const res = await fetch(`https://efraimemorial-production.up.railway.app/api/ktavim/${index}`, {
     method: 'DELETE'
   });
 
