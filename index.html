@@ -37,7 +37,7 @@
 <!-- Navigation Bar -->
 <nav class="bg-white/80 backdrop-blur-md border-b border-gray-300 shadow-sm sticky top-0 z-50">
   <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-    <div class="flex items-center gap-6 text-givati font-bold text-base md:text-lg">
+    <div class="flex items-center gap-6 text-blue-900 font-bold text-base md:text-lg">
       <a href="index.html" class="hover:text-blue-700">דף הבית</a>
       <a href="ktavim.html" class="hover:text-blue-700">כתבי אפרים</a>
       <a href="memories.html" class="hover:text-blue-700">מכתבים וזכרונות</a>
@@ -114,7 +114,7 @@
 <!-- About Section -->
 <section class="py-10 px-6 bg-gray-100">
 <div class="max-w-4xl mx-auto text-center">
-<h2 class="text-2xl md:text-4xl font-bold text-givati mb-6">אודות אפרים</h2>
+<h2 class="text-2xl md:text-4xl font-bold text-blue-900 mb-6">אודות אפרים</h2>
 <p class="text-lg leading-relaxed text-gray-800">
         בנם של ליאת ושמואל. נולד ביום כ"ו באדר תשס"ב (10.3.2002) באלון שבות. אח לאלישבע, בנימין, יוסף, חנה, אביגיל ורבקה.<br/>
         ביום 11.11.2021 התגייס לצה"ל ושירת בחטיבת גבעתי.<br/>
@@ -126,10 +126,10 @@
 <!-- Ephraim's Writings Section -->
 <section class="py-10 px-6 bg-white" id="ktavim">
 <div class="max-w-5xl mx-auto">
-<h2 class="text-2xl md:text-4xl font-bold text-givati mb-10 text-center">כתבי אפרים</h2>
+<h2 class="text-2xl md:text-4xl font-bold text-blue-900 mb-10 text-center">כתבי אפרים</h2>
 <div class="grid gap-6 md:grid-cols-2 mb-8" id="ktavimContainer"></div>
 <div class="text-center">
-<a class="inline-block bg-givati text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition" href="ktavim.html">
+<a class="inline-block bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition" href="ktavim.html">
         לצפייה בכל הכתבים
       </a>
 </div>
@@ -139,10 +139,10 @@
 <!-- Gallery Preview -->
 <section class="py-10 px-6" style="background-color: transparent;">
   <div class="max-w-6xl mx-auto">
-  <h2 class="text-2xl md:text-4xl font-bold text-givati mb-10 text-center">גלריית תמונות</h2>
+  <h2 class="text-2xl md:text-4xl font-bold text-blue-900 mb-10 text-center">גלריית תמונות</h2>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8" id="galleryPreview"></div>
   <div class="text-center mt-6">
-  <a class="inline-block bg-givati text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition" href="gallery.html">לצפייה בכל התמונות</a>
+  <a class="inline-block bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition" href="gallery.html">לצפייה בכל התמונות</a>
   </div>
   </div>
   </section>
@@ -170,14 +170,14 @@
 <!-- Letters & Memories Section -->
 <section class="py-10 px-6 bg-gray-50">
   <div class="max-w-6xl mx-auto">
-    <h2 class="text-2xl md:text-4xl font-bold text-givati mb-10 text-center">מכתבים וזכרונות</h2>
+    <h2 class="text-2xl md:text-4xl font-bold text-blue-900 mb-10 text-center">מכתבים וזכרונות</h2>
 
     <!-- Memories Grid -->
     <div id="memoriesFullContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
 
     <!-- View All Button -->
     <div class="text-center mt-8">
-      <a class="inline-block bg-givati text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition" href="memories.html">
+      <a class="inline-block bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition" href="memories.html">
         לצפייה בכל המכתבים
       </a>
     </div>
@@ -266,7 +266,7 @@ const memoryForm = document.getElementById('memoryForm');
 
 <section id="videos" class="py-14 px-6" style="background-image: url('https://www.transparenttextures.com/patterns/white-wall.png'); background-repeat: repeat;">
   <div class="max-w-6xl mx-auto">
-    <h2 class="text-2xl md:text-4xl font-bold text-givati mb-10 text-center">סרטונים לזכר אפרים</h2>
+    <h2 class="text-2xl md:text-4xl font-bold text-blue-900 mb-10 text-center">סרטונים לזכר אפרים</h2>
     <p class="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto text-center mb-12">
       קטעי וידאו שצולמו על ידי חבריו של אפרים, לזכרו ולזכר הרגעים המיוחדים בחייו.
     </p>
@@ -349,23 +349,23 @@ async function loadMemoriesPreview() {
 
     <!-- Upload Image Form -->
     <div>
-      <h2 class="text-2xl md:text-3xl font-bold text-givati mb-6 text-center">העלה תמונה לגלריה</h2>
+      <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-6 text-center">העלה תמונה לגלריה</h2>
       <form class="bg-gray-50 p-6 rounded-xl shadow space-y-4" enctype="multipart/form-data" id="galleryForm">
         <input accept="image/*" class="w-full p-3 border rounded-lg bg-white" id="image" name="image" required type="file" />
         <input class="w-full p-3 border rounded-lg" id="uploader" name="uploader" placeholder="שמך (מי שלח את התמונה)" required type="text" />
         <input class="w-full p-3 border rounded-lg" id="caption" name="caption" placeholder="כתוב כיתוב לתמונה (לא חובה)" type="text" />
-        <button class="w-full bg-givati text-white py-3 rounded-lg hover:bg-givati transition" type="submit">שלח תמונה</button>
+        <button class="w-full bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-900 transition" type="submit">שלח תמונה</button>
         <p class="text-green-600 text-center mt-4 hidden" id="galleryResponse">התמונה נשלחה וממתינה לאישור</p>
       </form>
     </div>
 
     <!-- Submit Memory Form -->
     <div>
-      <h2 class="text-2xl md:text-3xl font-bold text-givati mb-6 text-center">שלחו זיכרון או מכתב</h2>
+      <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-6 text-center">שלחו זיכרון או מכתב</h2>
       <form class="bg-gray-50 p-6 rounded-xl shadow space-y-4" id="memoryForm">
         <input class="w-full p-3 border rounded-lg" id="name" name="name" placeholder="שמך" required type="text" />
         <textarea class="w-full p-3 border rounded-lg" id="message" name="message" placeholder="זיכרון או מכתב..." required rows="5"></textarea>
-        <button class="w-full bg-givati text-white py-3 rounded-lg hover:bg-givati transition" type="submit">שלח זיכרון</button>
+        <button class="w-full bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-900 transition" type="submit">שלח זיכרון</button>
         <p class="text-green-600 text-center mt-4 hidden" id="memoryResponse">הזיכרון נשלח וממתין לאישור</p>
       </form>
     </div>
