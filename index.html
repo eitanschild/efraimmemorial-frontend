@@ -23,6 +23,21 @@
   </style>
 </head>
 <body class="text-gray-800">
+
+<!-- Navigation Bar -->
+<nav class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center space-x-6 space-x-reverse text-blue-900 font-semibold text-sm md:text-base">
+      <a href="index.html" class="hover:text-blue-700">דף הבית</a>
+      <a href="ktavim.html" class="hover:text-blue-700">כתבי אפרים</a>
+      <a href="memories.html" class="hover:text-blue-700">מכתבים וזכרונות</a>
+      <a href="gallery.html" class="hover:text-blue-700">גלריה</a>
+      <a href="videos.html" class="hover:text-blue-700">וידאוים</a>
+    </div>
+    <span class="text-sm text-gray-500 hidden md:inline">לזכרו של אפרים יכמן ז"ל</span>
+  </div>
+</nav>
+
 <!-- Hero Section with Background -->
 <section class="relative h-[90vh] overflow-hidden bg-cover bg-center" style="background-image: url('https://efraimemorial-production.up.railway.app/uploads/hero-bg.jpg'); background-size: 130%;">
 <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
@@ -36,6 +51,7 @@
     </p>
 </div>
 </section>
+
 <script>
   async function loadKtavim() {
     const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
