@@ -34,8 +34,8 @@
 </div>
 <script>
       async function fetchMemories() {
-        const pendingRes = await fetch('http://localhost:3001/api/pending');
-        const approvedRes = await fetch('http://localhost:3001/api/memories');
+        const pendingRes = await fetch('https://efraimemorial-production.up.railway.app/api/pending');
+        const approvedRes = await fetch('https://efraimemorial-production.up.railway.app/api/memories');
         const pending = await pendingRes.json();
         const approved = await approvedRes.json();
 
@@ -74,8 +74,8 @@
       }
 
       async function fetchGallery() {
-        const pendingRes = await fetch('http://localhost:3001/api/gallery/pending');
-        const approvedRes = await fetch('http://localhost:3001/api/gallery/approved');
+        const pendingRes = await fetch('https://efraimemorial-production.up.railway.app/api/gallery/pending');
+        const approvedRes = await fetch('https://efraimemorial-production.up.railway.app/api/gallery/approved');
         const pending = await pendingRes.json();
         const approved = await approvedRes.json();
 
@@ -88,7 +88,7 @@
           const div = document.createElement('div');
           div.className = 'bg-white rounded-xl shadow overflow-hidden';
           div.innerHTML = `
-            <img src="http://localhost:3001/pending-gallery/${item.filename}" class="w-full h-64 object-cover" />
+            <img src="https://efraimemorial-production.up.railway.app/pending-gallery/${item.filename}" class="w-full h-64 object-cover" />
             <div class="p-4">
               <p class="mb-2">${item.caption || ''}</p>
               <div class="flex gap-2">
@@ -104,7 +104,7 @@
           const div = document.createElement('div');
           div.className = 'bg-white rounded-xl shadow overflow-hidden';
           div.innerHTML = `
-            <img src="http://localhost:3001/gallery/${item.filename}" class="w-full h-64 object-cover" />
+            <img src="https://efraimemorial-production.up.railway.app/gallery/${item.filename}" class="w-full h-64 object-cover" />
             <div class="p-4">
               <p class="mb-2">${item.caption || ''}</p>
               <button onclick="deleteApprovedGallery(${i})" class="bg-red-600 text-white px-3 py-1 rounded">מחק</button>
@@ -115,7 +115,7 @@
       }
 
       async function approveMemory(index) {
-        const res = await fetch('http://localhost:3001/api/approve/' + index, { method: 'POST' });
+        const res = await fetch('https://efraimemorial-production.up.railway.app/api/approve/' + index, { method: 'POST' });
         if (res.ok) {
           alert('הזיכרון אושר');
           fetchMemories();
@@ -126,7 +126,7 @@
         const name = document.getElementById('name-' + index).value;
         const message = document.getElementById('message-' + index).value;
 
-        await fetch('http://localhost:3001/api/edit/' + index, {
+        await fetch('https://efraimemorial-production.up.railway.app/api/edit/' + index, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, message })
@@ -137,18 +137,18 @@
 
       async function deleteMemory(index) {
         if (!confirm('למחוק זיכרון זה?')) return;
-        await fetch('http://localhost:3001/api/delete/' + index, { method: 'POST' });
+        await fetch('https://efraimemorial-production.up.railway.app/api/delete/' + index, { method: 'POST' });
         fetchMemories();
       }
 
       async function deleteApproved(index) {
         if (!confirm('למחוק זיכרון מאושר זה?')) return;
-        await fetch('http://localhost:3001/api/delete-approved/' + index, { method: 'POST' });
+        await fetch('https://efraimemorial-production.up.railway.app/api/delete-approved/' + index, { method: 'POST' });
         fetchMemories();
       }
 
       async function approveGallery(index) {
-        const res = await fetch('http://localhost:3001/api/gallery/approve/' + index, { method: 'POST' });
+        const res = await fetch('https://efraimemorial-production.up.railway.app/api/gallery/approve/' + index, { method: 'POST' });
         if (res.ok) {
           alert('אושר');
           fetchGallery();
@@ -157,13 +157,13 @@
 
       async function deleteGallery(index) {
         if (!confirm('למחוק תמונה זו?')) return;
-        await fetch('http://localhost:3001/api/gallery/delete/' + index, { method: 'POST' });
+        await fetch('https://efraimemorial-production.up.railway.app/api/gallery/delete/' + index, { method: 'POST' });
         fetchGallery();
       }
 
       async function deleteApprovedGallery(index) {
         if (!confirm('למחוק תמונה מאושרת זו?')) return;
-        await fetch('http://localhost:3001/api/gallery/delete-approved/' + index, { method: 'POST' });
+        await fetch('https://efraimemorial-production.up.railway.app/api/gallery/delete-approved/' + index, { method: 'POST' });
         fetchGallery();
       }
 
@@ -189,7 +189,7 @@
     const title = document.getElementById('ktavTitle').value;
     const content = document.getElementById('ktavContent').value;
 
-    const res = await fetch('http://localhost:3001/api/ktavim', {
+    const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, content })
@@ -212,7 +212,7 @@
 </section>
 <script>
 async function loadKtavList(); loadMemories(); loadPendingGallery(); {
-  const res = await fetch('http://localhost:3001/api/ktavim');
+  const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
   const data = await res.json();
   const pendingList = document.getElementById('pendingKtavList');
   const approvedList = document.getElementById('approvedKtavList');
@@ -241,7 +241,7 @@ async function loadKtavList(); loadMemories(); loadPendingGallery(); {
 }
 
 async function approveKtav(index) {
-  const res = await fetch(`http://localhost:3001/api/ktavim/approve/${index}`, {
+  const res = await fetch(`https://efraimemorial-production.up.railway.app/api/ktavim/approve/${index}`, {
     method: 'POST'
   });
   if (res.ok) {
@@ -252,7 +252,7 @@ async function approveKtav(index) {
 }
 
 async function deleteKtav(index) {
-  const res = await fetch(`http://localhost:3001/api/ktavim/${index}`, {
+  const res = await fetch(`https://efraimemorial-production.up.railway.app/api/ktavim/${index}`, {
     method: 'DELETE'
   });
   if (res.ok) {

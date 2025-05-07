@@ -40,7 +40,7 @@
 
   <script>
     async function loadAllKtavim() {
-      const res = await fetch('http://localhost:3001/api/ktavim');
+      const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
       const ktavim = await res.json();
       const container = document.getElementById('ktavimFullContainer');
       container.innerHTML = '';

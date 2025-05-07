@@ -24,7 +24,7 @@
 </head>
 <body class="text-gray-800">
 <!-- Hero Section with Background -->
-<section class="relative h-[90vh] overflow-hidden bg-cover bg-center" style="background-image: url('http://localhost:3001/uploads/hero-bg.jpg'); background-size: 130%;">
+<section class="relative h-[90vh] overflow-hidden bg-cover bg-center" style="background-image: url('https://efraimemorial-production.up.railway.app/uploads/hero-bg.jpg'); background-size: 130%;">
 <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
 <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
 <img alt="אפרים יכמן" class="w-40 h-40 rounded-full border-4 border-white shadow-lg mb-6" src="images/ephraim.jpg"/>
@@ -38,7 +38,7 @@
 </section>
 <script>
   async function loadKtavim() {
-    const res = await fetch('http://localhost:3001/api/ktavim');
+    const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
     const all = await res.json(); const ktavim = all.filter(k => k.approved);
     const container = document.getElementById('ktavimContainer');
     container.innerHTML = '';
@@ -123,7 +123,7 @@
   <script>
   window.addEventListener('DOMContentLoaded', () => {
   async function loadGalleryPreview() {
-      const res = await fetch('http://localhost:3001/api/gallery/approved');
+      const res = await fetch('https://efraimemorial-production.up.railway.app/api/gallery/approved');
       const data = await res.json();
       const grid = document.getElementById('galleryPreview');
       grid.innerHTML = ''; if (data.length === 0) { grid.innerHTML = '<p class="text-center text-gray-500 col-span-full">אין תמונות להצגה כרגע.</p>'; return; }
@@ -131,7 +131,7 @@
         const div = document.createElement('div');
         div.className = "bg-white rounded-lg shadow p-2";
         div.innerHTML = `
-          <img src="http://localhost:3001/gallery/${img.filename}" alt="" class="w-full h-64 object-cover rounded" />
+          <img src="https://efraimemorial-production.up.railway.app/gallery/${img.filename}" alt="" class="w-full h-64 object-cover rounded" />
           <p class="mt-2 text-sm text-gray-600">${img.caption || ""}</p>
         `;
         grid.appendChild(div);
@@ -161,7 +161,7 @@
 <!-- Script to Load Memories -->
 <script>
   async function loadMemories() {
-    const res = await fetch('http://localhost:3001/api/memories/approved');
+    const res = await fetch('https://efraimemorial-production.up.railway.app/api/memories/approved');
     const memories = await res.json();
     const container = document.getElementById('memoriesFullContainer');
     container.innerHTML = '';
@@ -194,7 +194,7 @@ const memoryForm = document.getElementById('memoryForm');
       const name = document.getElementById('name').value;
       const message = document.getElementById('message').value;
 
-      const res = await fetch('http://localhost:3001/api/memories', {
+      const res = await fetch('https://efraimemorial-production.up.railway.app/api/memories', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, message })
@@ -212,7 +212,7 @@ const memoryForm = document.getElementById('memoryForm');
 <!-- Gallery Display -->
 <script>
     async function loadGallery() {
-      const res = await fetch('http://localhost:3001/api/gallery/approved');
+      const res = await fetch('https://efraimemorial-production.up.railway.app/api/gallery/approved');
       const data = await res.json();
       const grid = document.getElementById('galleryGrid');
       grid.innerHTML = '';
@@ -226,7 +226,7 @@ const memoryForm = document.getElementById('memoryForm');
         const div = document.createElement('div');
         div.className = 'bg-white rounded-xl shadow overflow-hidden';
         div.innerHTML = `
-          <img src="http://localhost:3001/gallery/${item.filename}" class="w-full h-64 object-cover" />
+          <img src="https://efraimemorial-production.up.railway.app/gallery/${item.filename}" class="w-full h-64 object-cover" />
           <div class="p-4 text-center text-sm text-gray-700">${item.caption || ''}<br/><span class="text-xs text-gray-500">נשלח על ידי: ${item.uploader || "לא ידוע"}</span></div>
         `;
         grid.appendChild(div);
@@ -246,7 +246,7 @@ const galleryForm = document.getElementById('galleryForm');
       formData.append('caption', document.getElementById('caption').value);
       formData.append('uploader', document.getElementById('uploader').value);
 
-      const res = await fetch('http://localhost:3001/api/gallery', {
+      const res = await fetch('https://efraimemorial-production.up.railway.app/api/gallery', {
         method: 'POST',
         body: formData
       });
@@ -264,7 +264,7 @@ const galleryForm = document.getElementById('galleryForm');
 <script>
 window.addEventListener('DOMContentLoaded', () => {
 async function loadMemoriesPreview() {
-    const res = await fetch('http://localhost:3001/api/memories/approved');
+    const res = await fetch('https://efraimemorial-production.up.railway.app/api/memories/approved');
     const data = await res.json();
     const container = document.getElementById('memoriesPreview');
     container.innerHTML = ''; if (data.length === 0) { container.innerHTML = '<p class="text-center text-gray-500">אין זיכרונות להצגה כרגע.</p>'; return; }
