@@ -203,66 +203,50 @@
     }
   });
 </script>
-<!-- Existing submission form stays above -->
+<!-- Existing כתבים display section -->
 <section class="py-10 px-6 bg-white border-t border-gray-100">
-<div class="max-w-3xl mx-auto">
-<h2 class="text-xl font-bold text-gray-800 mb-6 text-center">כתבים קיימים</h2>
-<ul class="space-y-4" id="ktavList"></ul>
-</div>
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">כתבים קיימים</h2>
+    <ul class="space-y-4" id="ktavList"></ul>
+  </div>
 </section>
+
 <script>
-async function loadKtavList(); loadMemories(); loadPendingGallery(); {
-  const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
-  const data = await res.json();
-  const pendingList = document.getElementById('pendingKtavList');
-  const approvedList = document.getElementById('approvedKtavList');
-  pendingList.innerHTML = '';
-  approvedList.innerHTML = '';
+  async function loadAllKtavim() {
+    const res = await fetch('http://https://efraimemorial-production.up.railway.app/api/ktavim');
+    const data = await res.json();
+    const list = document.getElementById('ktavList');
+    list.innerHTML = '';
 
-  data.forEach((item, index) => {
-    const li = document.createElement('li');
-    li.className = "bg-white p-4 rounded shadow";
+    data.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.className = "bg-white p-4 rounded shadow";
 
-    li.innerHTML = `
-      <h3 class="text-lg font-bold mb-2">${item.title}</h3>
-      <p class="mb-2 whitespace-pre-line">${item.content}</p>
-      <div class="space-x-4 flex">
-        ${!item.approved ? `<button onclick="approveKtav(${index})" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500">אשר</button>` : ''}
+      li.innerHTML = `
+        <h3 class="text-lg font-bold mb-2">${item.title}</h3>
+        <p class="mb-2 whitespace-pre-line">${item.content}</p>
         <button onclick="deleteKtav(${index})" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500">מחק</button>
-      </div>
-    `;
+      `;
 
-    if (item.approved) {
-      approvedList.appendChild(li);
-    } else {
-      pendingList.appendChild(li);
-    }
-  });
-}
-
-async function approveKtav(index) {
-  const res = await fetch(`https://efraimemorial-production.up.railway.app/api/ktavim/approve/${index}`, {
-    method: 'POST'
-  });
-  if (res.ok) {
-    loadKtavList(); loadMemories(); loadPendingGallery();;
-  } else {
-    alert("שגיאה באישור כתב");
+      list.appendChild(li);
+    });
   }
-}
 
-async function deleteKtav(index) {
-  const res = await fetch(`https://efraimemorial-production.up.railway.app/api/ktavim/${index}`, {
+  async function deleteKtav(index) {
+  const confirmed = confirm("האם אתה בטוח שברצונך למחוק את הכתב?");
+  if (!confirmed) return;
+
+  const res = await fetch(`http://https://efraimemorial-production.up.railway.app/api/ktavim/${index}`, {
     method: 'DELETE'
   });
+
   if (res.ok) {
-    loadKtavList(); loadMemories(); loadPendingGallery();;
+    loadAllKtavim();
   } else {
     alert("שגיאה במחיקה");
   }
 }
 
-window.addEventListener('DOMContentLoaded', loadKtavList);
+
+  window.addEventListener('DOMContentLoaded', loadAllKtavim);
 </script>
-</body>
-</html>
