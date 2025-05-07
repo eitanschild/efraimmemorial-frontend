@@ -1,28 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>גלריית תמונות - אפרים יכמן</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" rel="stylesheet" />
+  <title>גלריית תמונות</title>
+  <meta name="description" content="תמונות מרגשות מתוך חייו של אפרים יכמן, לוחם גבעתי ז"ל.">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&family=Varela+Round&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       font-family: 'Assistant', sans-serif;
       background-image: url('https://www.transparenttextures.com/patterns/white-wall.png');
-      background-repeat: repeat;
-      background-color: #fefefe;
     }
   </style>
 </head>
 <body class="text-gray-800">
 
-  <section class="py-16 px-6">
-    <div class="max-w-6xl mx-auto">
-      <h1 class="text-3xl md:text-5xl font-bold text-blue-900 mb-10 text-center">גלריית תמונות</h1>
-      <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+  <header class="bg-blue-900 text-white py-6 shadow sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">גלריית תמונות</h1>
+      <a href="index.html" class="underline text-sm">חזרה לדף הראשי</a>
     </div>
+  </header>
+
+  <section class="py-14 px-6">
+    <div class="max-w-4xl mx-auto text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">תמונות מתוך חייו של אפרים</h2>
+      <p class="text-lg text-gray-700 leading-relaxed max-w-xl mx-auto">
+        אוסף תמונות שצולמו לאורך חייו של אפרים, ברגעים אישיים ובלתי נשכחים.
+      </p>
+    </div>
+    <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto"></div>
   </section>
 
   <script>
@@ -39,10 +47,13 @@
 
       data.reverse().forEach(item => {
         const div = document.createElement('div');
-        div.className = 'bg-white rounded-xl shadow overflow-hidden';
+        div.className = 'bg-white rounded-xl shadow overflow-hidden flex flex-col';
         div.innerHTML = `
           <img src="https://efraimemorial-production.up.railway.app/gallery/${item.filename}" class="w-full h-64 object-cover" />
-          <div class="p-4 text-center text-sm text-gray-700">${item.caption || ''}<br/><span class="text-xs text-gray-500">נשלח על ידי: ${item.uploader || "לא ידוע"}</span></div>
+          <div class="p-4 text-center text-sm text-gray-700">
+            ${item.caption || ''}<br/>
+            <span class="text-xs text-gray-500">נשלח על ידי: ${item.uploader || "לא ידוע"}</span>
+          </div>
         `;
         grid.appendChild(div);
       });
