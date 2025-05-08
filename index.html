@@ -237,32 +237,33 @@ const memoryForm = document.getElementById('memoryForm');
 </script>
 <!-- Gallery Display -->
 <script>
-  async function loadGallery() {
-    const res = await fetch('https://efraimemorial-production.up.railway.app/api/gallery/approved');
-    const data = await res.json();
-    const grid = document.getElementById('galleryGrid');
-    grid.innerHTML = '';
+  window.addEventListener('DOMContentLoaded', () => {
+    async function loadGalleryPreview() {
+      const res = await fetch('https://efraimemorial-production.up.railway.app/api/gallery/approved');
+      const data = await res.json();
+      const grid = document.getElementById('galleryPreview');
+      grid.innerHTML = '';
 
-    if (!data.length) {
-      grid.innerHTML = '<p class="text-center text-gray-600 col-span-full">אין תמונות להצגה עדיין.</p>';
-      return;
+      if (data.length === 0) {
+        grid.innerHTML = '<p class="text-center text-gray-500 col-span-full">אין תמונות להצגה כרגע.</p>';
+        return;
+      }
+
+      data.reverse().slice(0, 6).forEach(img => {
+        const src = img.url; // We assume all approved entries are Cloudinary now
+
+        const div = document.createElement('div');
+        div.className = "bg-white rounded-lg shadow p-2";
+        div.innerHTML = `
+          <img src="${src}" alt="${img.caption || ''}" class="w-full h-64 object-cover rounded" />
+          <p class="mt-2 text-sm text-gray-600">${img.caption || ""}</p>
+        `;
+        grid.appendChild(div);
+      });
     }
 
-    data.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'bg-white rounded-xl shadow overflow-hidden';
-      div.innerHTML = `
-        <img src="${item.url}" class="w-full h-64 object-cover" />
-        <div class="p-4 text-center text-sm text-gray-700">
-          ${item.caption || ''}<br/>
-          <span class="text-xs text-gray-500">נשלח על ידי: ${item.uploader || "לא ידוע"}</span>
-        </div>
-      `;
-      grid.appendChild(div);
-    });
-  }
-
-  loadGallery();
+    loadGalleryPreview();
+  });
 </script>
 
 
