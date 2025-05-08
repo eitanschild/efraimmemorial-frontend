@@ -302,33 +302,7 @@ const memoryForm = document.getElementById('memoryForm');
   </div>
 </section>
 
-
-<!-- Gallery Upload Section -->
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-const galleryForm = document.getElementById('galleryForm');
-    galleryForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData();
-      formData.append('image', document.getElementById('image').files[0]);
-      formData.append('caption', document.getElementById('caption').value);
-      formData.append('uploader', document.getElementById('uploader').value);
-
-      const res = await fetch('https://efraimemorial-production.up.railway.app/api/gallery', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (res.ok) {
-        document.getElementById('galleryResponse').classList.remove('hidden');
-        galleryForm.reset();
-      } else {
-        alert('שגיאה בהעלאת התמונה');
-      }
-    });
-});
-</script>
-
+    <!-- Upload Image Form -->
 <script>
 window.addEventListener('DOMContentLoaded', () => {
 async function loadMemoriesPreview() {
@@ -352,7 +326,7 @@ async function loadMemoriesPreview() {
 <section class="py-10 px-6 bg-white">
   <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 
-    <!-- Upload Image Form -->
+
 <div>
   <h2 class="text-2xl md:text-3xl font-bold text- mb-6 text-center">העלה תמונה לגלריה</h2>
   <form class="bg-gray-50 p-6 rounded-xl shadow space-y-4" enctype="multipart/form-data" id="galleryForm">
