@@ -212,29 +212,6 @@
   loadMemories();
 </script>
 
-<!-- Submit Memory -->
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-const memoryForm = document.getElementById('memoryForm');
-    memoryForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const message = document.getElementById('message').value;
-
-      const res = await fetch('https://efraimemorial-production.up.railway.app/api/memories', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, message })
-      });
-
-      if (res.ok) {
-        document.getElementById('memoryResponse').classList.remove('hidden');
-        memoryForm.reset();
-      } else {
-        alert('שגיאה בשליחה');
-      }
-    });
-});
 </script>
 <!-- Gallery Display -->
 <script>
