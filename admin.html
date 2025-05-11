@@ -16,36 +16,7 @@
       }
     }
   }
-</script>
-
-<form id="loginForm">
-  <input type="text" id="username" placeholder="שם משתמש" />
-  <input type="password" id="password" placeholder="סיסמה" />
-  <button type="submit">התחבר</button>
-</form>
-
-<p id="errorMsg" class="text-red-500 mt-2 hidden">שם משתמש או סיסמה שגויים</p>
-
-<script>
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-
-  const res = await fetch('https://efraimemorial-production.up.railway.app/auth', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ username, password }),
-  });
-
-  if (res.ok) {
-    window.location.href = '/admin-panel.html'; // or wherever your real admin dashboard is
-  } else {
-    document.getElementById('errorMsg').classList.remove('hidden');
-  }
-});
+  
 </script>
 
 
