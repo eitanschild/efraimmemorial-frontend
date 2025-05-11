@@ -16,8 +16,37 @@
       }
     }
   }
-  
+
 </script>
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>פאנל ניהול</title>
+  <script defer>
+    if (localStorage.getItem('adminLoggedIn') !== 'true') {
+      window.location.href = '/admin.html';
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white min-h-screen p-6">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-purple-800 mb-6">פאנל ניהול</h1>
+    <!-- Admin controls will go here -->
+    <button onclick="logout()"
+            class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">התנתק</button>
+  </div>
+  <script>
+    function logout() {
+      localStorage.removeItem('adminLoggedIn');
+      window.location.href = '/admin.html';
+    }
+  </script>
+</body>
+</html>
+
 
 
 <!--loading bar-->

@@ -19,5 +19,27 @@
       <p id="errorMsg" class="text-red-600 hidden">שם משתמש או סיסמה שגויים</p>
     </form>
   </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+    
+      const res = await fetch('https://efraimemorial-production.up.railway.app/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+    
+      if (res.ok) {
+        localStorage.setItem('adminLoggedIn', 'true');
+        window.location.href = '/admin-panel.html';
+      } else {
+        document.getElementById('errorMsg').classList.remove('hidden');
+      }
+    });
+    </script>
+    
 </body>
 </html>
