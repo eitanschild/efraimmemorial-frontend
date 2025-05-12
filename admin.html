@@ -80,7 +80,7 @@
       const res = await fetch(url, options);
       if (res.status === 403) {
         alert('הגישה נדחתה. אנא התחבר מחדש.');
-        window.location.href = '/admin.html';
+        window.location.href = '/login.html';
         return [];
       }
       return res.json();
