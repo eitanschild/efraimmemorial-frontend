@@ -30,6 +30,7 @@
       const res = await fetch('https://efraimemorial-production.up.railway.app/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ username, password })
       });
 
