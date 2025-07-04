@@ -17,15 +17,23 @@
     header {
       background-color: #1f3f81;
       color: white;
-      padding: 1.5rem;
-      text-align: center;
+      padding: 1.5rem 2rem;
       font-size: 1.8rem;
       font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
     }
 
     main {
       display: flex;
-      flex-direction: row-reverse;
+      flex-direction: row; /* Now sidebar is on the right */
       min-height: 100vh;
     }
 
@@ -33,7 +41,7 @@
       width: 250px;
       background-color: rgba(255, 255, 255, 0.95);
       padding: 2rem 1rem;
-      border-right: 2px solid #ccc;
+      border-left: 2px solid #ccc;
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
@@ -74,7 +82,7 @@
       font-size: 1.6rem;
       margin-bottom: 2rem;
       color: #1f3f81;
-      text-align: center;
+      text-align: right;
     }
 
     .video-grid {
@@ -103,19 +111,32 @@
         height: auto;
         flex-direction: row;
         justify-content: space-around;
-        border-right: none;
+        border-left: none;
         border-bottom: 2px solid #ccc;
       }
 
       .content {
         padding: 2rem 1rem;
       }
+
+      header {
+        flex-direction: column-reverse;
+        gap: 0.5rem;
+        text-align: center;
+      }
+
+      header a {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>סרטונים</header>
+  <header>
+    <span>סרטונים</span>
+    <a href="index.html">חזרה לדף הראשי</a>
+  </header>
 
   <main>
     <div class="sidebar">
