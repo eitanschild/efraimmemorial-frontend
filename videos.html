@@ -22,7 +22,7 @@
 </head>
 <body class="text-gray-800">
 
-  <!-- Header Bar (same as ktavim) -->
+  <!-- Header Bar -->
   <header class="bg-blue-900 text-white py-6 shadow sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
       <h1 class="text-2xl font-bold">סרטונים</h1>
@@ -30,16 +30,16 @@
     </div>
   </header>
 
-  <!-- Page Content -->
+  <!-- Main Layout: sidebar on the right -->
   <main class="flex flex-row-reverse min-h-screen">
-    <!-- Sidebar on the right -->
+    <!-- Sidebar -->
     <div class="w-60 bg-white/90 border-l-2 border-gray-300 p-6 space-y-4 sticky top-[72px] h-full">
       <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 active" data-tab="ephraim">🎥 סרטונים של אפרים</button>
       <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200" data-tab="songs">🎵 שירים</button>
       <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200" data-tab="hespedim">🕯️ הספדים</button>
     </div>
 
-    <!-- Video Sections -->
+    <!-- Content -->
     <div class="flex-1 p-8">
       <!-- Section 1 -->
       <section id="ephraim" class="video-section block">
@@ -96,7 +96,7 @@
     </div>
   </main>
 
-  <!-- Tab Logic -->
+  <!-- Tab Switching Script -->
   <script>
     const buttons = document.querySelectorAll('.tab-btn');
     const sections = document.querySelectorAll('.video-section');
