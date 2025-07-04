@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>סרטונים - אפרים יכמן</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      margin: 0;
+      padding: 0 1rem;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-top: 2rem;
+      color: #333;
+    }
+
+    .video-section {
+      margin: 3rem 0;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      justify-items: center;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 560px;
+      aspect-ratio: 16 / 9;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>סרטונים</h1>
+
+  <section class="video-section">
+    <h2>סרטונים של אפרים</h2>
+    <div class="video-grid">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <section class="video-section">
+    <h2>שירים</h2>
+    <div class="video-grid">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_4" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <section class="video-section">
+    <h2>הספדים</h2>
+    <div class="video-grid">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_5" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_6" allowfullscreen></iframe>
+    </div>
+  </section>
+
+</body>
+</html>
