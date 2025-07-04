@@ -31,8 +31,7 @@
 
   <!-- Layout -->
   <main class="flex flex-row min-h-screen bg-transparent">
-
-    <!-- Sidebar (RIGHT) -->
+    <!-- Sidebar -->
     <aside class="w-60 bg-white/90 border-l-2 border-gray-300 p-6 space-y-4 sticky top-[72px] h-fit">
       <h3 class="text-lg font-bold text-gray-700 mb-2">קטגוריות</h3>
       <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 active transition-all duration-200" data-tab="ephraim">🎥 סרטונים של אפרים</button>
@@ -40,72 +39,35 @@
       <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200" data-tab="hespedim">🕯️ הספדים</button>
     </aside>
 
-    <!-- Main Content Area -->
+    <!-- Content -->
     <section class="flex-1 p-8 max-w-7xl mx-auto space-y-12">
-
       <!-- Section: סרטונים של אפרים -->
       <div id="ephraim" class="video-section block opacity-100 transition-opacity duration-300">
         <div class="bg-white/80 p-6 rounded-xl shadow">
           <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-8 text-right">🎥 סרטונים של אפרים</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
-              <iframe class="w-full h-full"
-                src="https://www.youtube.com/embed/ZpiBhteibZM"
-                title="סרטון 1 לזכר אפרים"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
-              <iframe class="w-full h-full"
-                src="https://www.youtube.com/embed/LEJ2h6bgmoM"
-                title="סרטון 2 לזכר אפרים"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-          </div>
+          <div id="ephraimVideos" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
         </div>
       </div>
 
       <!-- Section: שירים -->
-      <div id="songs" class="video-section hidden opacity-0 transition-opacity duration-300">
+      <div id="songs" class="video-section opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="bg-white/80 p-6 rounded-xl shadow">
           <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-8 text-right">🎵 שירים</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
-              <iframe class="w-full h-full"
-                src="https://www.youtube.com/embed/VIDEO_ID_3"
-                title="שיר"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-          </div>
+          <div id="songsVideos" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
         </div>
       </div>
 
       <!-- Section: הספדים -->
-      <div id="hespedim" class="video-section hidden opacity-0 transition-opacity duration-300">
+      <div id="hespedim" class="video-section opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="bg-white/80 p-6 rounded-xl shadow">
           <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-8 text-right">🕯️ הספדים</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
-              <iframe class="w-full h-full"
-                src="https://www.youtube.com/embed/VIDEO_ID_4"
-                title="הספד"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-          </div>
+          <div id="hespedimVideos" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
         </div>
       </div>
-
     </section>
   </main>
 
-  <!-- Script -->
+  <!-- Tab Logic -->
   <script>
     const buttons = document.querySelectorAll('.tab-btn');
     const sections = document.querySelectorAll('.video-section');
@@ -113,17 +75,57 @@
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
-        sections.forEach(s => {
-          s.classList.remove('block', 'opacity-100');
-          s.classList.add('hidden', 'opacity-0');
+        btn.classList.add('active');
+
+        sections.forEach(section => {
+          section.classList.remove('opacity-100');
+          section.classList.add('opacity-0', 'pointer-events-none');
         });
 
-        btn.classList.add('active');
         const selected = document.getElementById(btn.dataset.tab);
-        selected.classList.remove('hidden');
-        setTimeout(() => selected.classList.add('opacity-100', 'block'), 10);
+        selected.classList.remove('opacity-0', 'pointer-events-none');
+        selected.classList.add('opacity-100');
       });
     });
+  </script>
+
+  <!-- Load Videos -->
+  <script>
+    async function loadVideos() {
+      const res = await fetch('/api/videos');
+      const data = await res.json();
+
+      const ephraim = document.getElementById('ephraimVideos');
+      const songs = document.getElementById('songsVideos');
+      const hespedim = document.getElementById('hespedimVideos');
+
+      ephraim.innerHTML = '';
+      songs.innerHTML = '';
+      hespedim.innerHTML = '';
+
+      data.forEach(video => {
+        const div = document.createElement('div');
+        div.className = 'w-full h-64 rounded-xl overflow-hidden shadow bg-black';
+        div.innerHTML = `
+          <iframe class="w-full h-full"
+                  src="https://www.youtube.com/embed/${video.youtubeId}"
+                  title="${video.title}"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+        `;
+
+        if (video.section === 'ephraim') {
+          ephraim.appendChild(div);
+        } else if (video.section === 'songs') {
+          songs.appendChild(div);
+        } else if (video.section === 'hespedim') {
+          hespedim.appendChild(div);
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', loadVideos);
   </script>
 
 </body>
