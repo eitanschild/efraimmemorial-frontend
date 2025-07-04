@@ -92,7 +92,7 @@
   <!-- Load Videos -->
   <script>
     async function loadVideos() {
-      const res = await fetch('/api/videos');
+      const res = await fetch('https://efraimemorial-production.up.railway.app/api/videos');
       const data = await res.json();
 
       const ephraim = document.getElementById('ephraimVideos');
