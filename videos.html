@@ -1,93 +1,130 @@
-<main class="flex flex-row min-h-screen bg-transparent">
-  <!-- Sidebar -->
-  <aside class="w-60 bg-white/90 border-l-2 border-gray-300 p-6 space-y-4 sticky top-[72px] h-fit">
-    <h3 class="text-lg font-bold text-gray-700 mb-2">קטגוריות</h3>
-    <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 active transition-all duration-200" data-tab="ephraim">🎥 סרטונים של אפרים</button>
-    <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200" data-tab="songs">🎵 שירים</button>
-    <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200" data-tab="hespedim">🕯️ הספדים</button>
-  </aside>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>סרטונים - אפרים יכמן</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico?v=1" type="image/x-icon">
+  <meta name="description" content="סרטונים לזכרו של אפרים יכמן, לוחם גבעתי ז״ל.">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Assistant', sans-serif;
+      background-image: url('https://www.transparenttextures.com/patterns/white-wall.png');
+      background-repeat: repeat;
+    }
+    .tab-btn.active {
+      background-color: #cbd5e1 !important;
+    }
+  </style>
+</head>
+<body class="text-gray-800">
 
-  <!-- Main Content Area -->
-  <section class="flex-1 p-8 max-w-7xl mx-auto space-y-12">
+  <!-- Header -->
+  <header class="bg-blue-900 text-white py-6 shadow sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">סרטונים</h1>
+      <a href="index.html#videos" class="underline text-sm">חזרה לדף הראשי</a>
+    </div>
+  </header>
 
-    <!-- Section: סרטונים של אפרים -->
-    <div id="ephraim" class="video-section block opacity-100 transition-opacity duration-300">
-      <div class="bg-white/80 p-6 rounded-xl shadow">
-        <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-8 text-right">🎥 סרטונים של אפרים</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
-            <iframe class="w-full h-full"
-              src="https://www.youtube.com/embed/ZpiBhteibZM"
-              title="סרטון 1 לזכר אפרים"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-          </div>
-          <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
-            <iframe class="w-full h-full"
-              src="https://www.youtube.com/embed/LEJ2h6bgmoM"
-              title="סרטון 2 לזכר אפרים"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
+  <!-- Layout -->
+  <main class="flex flex-row min-h-screen bg-transparent">
+
+    <!-- Sidebar (RIGHT) -->
+    <aside class="w-60 bg-white/90 border-l-2 border-gray-300 p-6 space-y-4 sticky top-[72px] h-fit">
+      <h3 class="text-lg font-bold text-gray-700 mb-2">קטגוריות</h3>
+      <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 active transition-all duration-200" data-tab="ephraim">🎥 סרטונים של אפרים</button>
+      <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200" data-tab="songs">🎵 שירים</button>
+      <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200" data-tab="hespedim">🕯️ הספדים</button>
+    </aside>
+
+    <!-- Main Content Area -->
+    <section class="flex-1 p-8 max-w-7xl mx-auto space-y-12">
+
+      <!-- Section: סרטונים של אפרים -->
+      <div id="ephraim" class="video-section block opacity-100 transition-opacity duration-300">
+        <div class="bg-white/80 p-6 rounded-xl shadow">
+          <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-8 text-right">🎥 סרטונים של אפרים</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
+              <iframe class="w-full h-full"
+                src="https://www.youtube.com/embed/ZpiBhteibZM"
+                title="סרטון 1 לזכר אפרים"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+            <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
+              <iframe class="w-full h-full"
+                src="https://www.youtube.com/embed/LEJ2h6bgmoM"
+                title="סרטון 2 לזכר אפרים"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Section: שירים -->
-    <div id="songs" class="video-section hidden opacity-0 transition-opacity duration-300">
-      <div class="bg-white/80 p-6 rounded-xl shadow">
-        <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-8 text-right">🎵 שירים</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
-            <iframe class="w-full h-full"
-              src="https://www.youtube.com/embed/VIDEO_ID_3"
-              title="שיר"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
+      <!-- Section: שירים -->
+      <div id="songs" class="video-section hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white/80 p-6 rounded-xl shadow">
+          <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-8 text-right">🎵 שירים</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
+              <iframe class="w-full h-full"
+                src="https://www.youtube.com/embed/VIDEO_ID_3"
+                title="שיר"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Section: הספדים -->
-    <div id="hespedim" class="video-section hidden opacity-0 transition-opacity duration-300">
-      <div class="bg-white/80 p-6 rounded-xl shadow">
-        <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-8 text-right">🕯️ הספדים</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
-            <iframe class="w-full h-full"
-              src="https://www.youtube.com/embed/VIDEO_ID_4"
-              title="הספד"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
+      <!-- Section: הספדים -->
+      <div id="hespedim" class="video-section hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white/80 p-6 rounded-xl shadow">
+          <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-8 text-right">🕯️ הספדים</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="w-full h-64 rounded-xl overflow-hidden shadow bg-black">
+              <iframe class="w-full h-full"
+                src="https://www.youtube.com/embed/VIDEO_ID_4"
+                title="הספד"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-  </section>
-</main>
+    </section>
+  </main>
 
-<script>
-  const buttons = document.querySelectorAll('.tab-btn');
-  const sections = document.querySelectorAll('.video-section');
+  <!-- Script -->
+  <script>
+    const buttons = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.video-section');
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
-      sections.forEach(s => {
-        s.classList.remove('block', 'opacity-100');
-        s.classList.add('hidden', 'opacity-0');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        sections.forEach(s => {
+          s.classList.remove('block', 'opacity-100');
+          s.classList.add('hidden', 'opacity-0');
+        });
+
+        btn.classList.add('active');
+        const selected = document.getElementById(btn.dataset.tab);
+        selected.classList.remove('hidden');
+        setTimeout(() => selected.classList.add('opacity-100', 'block'), 10);
       });
-
-      btn.classList.add('active');
-      const selected = document.getElementById(btn.dataset.tab);
-      selected.classList.remove('hidden');
-      setTimeout(() => selected.classList.add('opacity-100', 'block'), 10);
     });
-  });
-</script>
+  </script>
+
+</body>
+</html>
