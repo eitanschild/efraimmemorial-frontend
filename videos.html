@@ -35,42 +35,49 @@
   
 
   <!-- Layout -->
-  <main class="flex flex-col md:flex-row min-h-screen bg-transparent">
-    <!-- Sidebar -->
-    <aside class="w-full md:w-60 bg-white/90 border-b md:border-b-0 md:border-l-2 border-gray-300 p-6 space-y-4 sticky md:top-[72px] h-fit z-10">
-      <h3 class="text-lg font-bold text-gray-700 mb-2">קטגוריות</h3>
-      <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 active transition-all duration-200" data-tab="ephraim">🎥 סרטונים של אפרים</button>
-      <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200" data-tab="songs">🎵 שירים</button>
-      <button class="tab-btn block w-full text-right px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200" data-tab="hespedim">🕯️ הספדים</button>
-    </aside>
+  <main class="py-12 px-6 max-w-6xl mx-auto space-y-12">
+
+    <!-- Top Title -->
+    <div class="text-center">
+      <h1 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">סרטונים לזכר אפרים</h1>
+      <p class="bg-blue-100 text-blue-900 text-lg rounded-xl px-6 py-4 max-w-2xl mx-auto leading-relaxed shadow-sm">
+        קטעים מצולמים, שירים והספדים – כל אלה נאספו כאן כדי לזכור, להוקיר ולשתף את הרגעים והדברים שנשארו איתנו מאפרים יכמן ז״ל.
+      </p>
+    </div>
   
-    <!-- Content -->
-    <section class="flex-1 p-6 md:p-8 max-w-7xl mx-auto space-y-12">
+    <!-- Tabs -->
+    <div class="flex justify-center flex-wrap gap-4 mt-8">
+      <button class="tab-btn active bg-blue-900 text-white px-5 py-2 rounded-lg text-lg hover:bg-blue-800 transition" data-tab="ephraim">
+        🎥 סרטונים של אפרים
+      </button>
+      <button class="tab-btn bg-gray-100 text-gray-800 px-5 py-2 rounded-lg text-lg hover:bg-gray-200 transition" data-tab="songs">
+        🎵 שירים
+      </button>
+      <button class="tab-btn bg-gray-100 text-gray-800 px-5 py-2 rounded-lg text-lg hover:bg-gray-200 transition" data-tab="hespedim">
+        🕯️ הספדים
+      </button>
+    </div>
+  
+    <!-- Content Area -->
+    <div class="relative min-h-[500px]">
+  
       <!-- Section: סרטונים של אפרים -->
-      <div id="ephraim" class="video-section flex flex-col justify-start">
-        <div class="bg-white/80 p-6 rounded-xl shadow min-h-[400px]">
-          <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-6 text-right">🎥 סרטונים של אפרים</h2>
-          <div id="ephraimVideos" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
-        </div>
+      <div id="ephraim" class="video-section block opacity-100 transition-opacity duration-300">
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8" id="ephraimVideos"></div>
       </div>
   
       <!-- Section: שירים -->
-      <div id="songs" class="video-section hidden flex-col justify-start">
-        <div class="bg-white/80 p-6 rounded-xl shadow min-h-[400px]">
-          <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-6 text-right">🎵 שירים</h2>
-          <div id="songsVideos" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
-        </div>
+      <div id="songs" class="video-section hidden opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8" id="songsVideos"></div>
       </div>
   
       <!-- Section: הספדים -->
-      <div id="hespedim" class="video-section hidden flex-col justify-start">
-        <div class="bg-white/80 p-6 rounded-xl shadow min-h-[400px]">
-          <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-6 text-right">🕯️ הספדים</h2>
-          <div id="hespedimVideos" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
-        </div>
+      <div id="hespedim" class="video-section hidden opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8" id="hespedimVideos"></div>
       </div>
-    </section>
-  </main>
+  
+    </div>
+  </main>  
   
   <!-- Tab Switching -->
   <script>
@@ -79,18 +86,17 @@
   
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        buttons.forEach(b => b.classList.remove('active', 'bg-blue-900', 'text-white'));
+        btn.classList.add('active', 'bg-blue-900', 'text-white');
   
-        sections.forEach(section => {
-          section.classList.add('hidden');
-        });
-  
-        const selected = document.getElementById(btn.dataset.tab);
-        selected.classList.remove('hidden');
+        sections.forEach(s => s.classList.add('hidden', 'opacity-0', 'pointer-events-none'));
+        const show = document.getElementById(btn.dataset.tab);
+        show.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+        show.classList.add('opacity-100');
       });
     });
   </script>
+  
   
 
   <!-- Load Videos -->
