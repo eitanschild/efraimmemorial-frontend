@@ -43,15 +43,15 @@
   
     <!-- Tabs -->
     <div class="flex justify-center flex-wrap gap-4 mt-8">
-      <button class="tab-btn px-5 py-2 rounded-lg text-lg hover:bg-gray-200 transition" data-tab="ephraim">
+      <button class="tab-btn bg-gray-100 text-gray-800 px-5 py-2 rounded-lg text-lg hover:bg-gray-200 transition" data-tab="ephraim">
         🎥 סרטונים של אפרים
-      </button>      
+      </button>
       <button class="tab-btn bg-gray-100 text-gray-800 px-5 py-2 rounded-lg text-lg hover:bg-gray-200 transition" data-tab="songs">
         🎵 שירים
       </button>
       <button class="tab-btn bg-gray-100 text-gray-800 px-5 py-2 rounded-lg text-lg hover:bg-gray-200 transition" data-tab="hespedim">
         🕯️ הספדים
-      </button>
+      </button>      
     </div>
   
     <!-- Content Area -->
@@ -82,8 +82,13 @@
   
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active', 'bg-blue-900', 'text-white'));
-        btn.classList.add('active', 'bg-blue-900', 'text-white');
+        buttons.forEach(b => {
+          b.classList.remove('bg-blue-900', 'text-white');
+          b.classList.add('bg-gray-100', 'text-gray-800');
+        });
+  
+        btn.classList.remove('bg-gray-100', 'text-gray-800');
+        btn.classList.add('bg-blue-900', 'text-white');
   
         sections.forEach(s => s.classList.add('hidden', 'opacity-0', 'pointer-events-none'));
         const show = document.getElementById(btn.dataset.tab);
@@ -91,7 +96,12 @@
         show.classList.add('opacity-100');
       });
     });
-  </script>
+  
+    // 🔥 Force first tab to activate on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      buttons[0].click();
+    });
+  </script>  
   
   
 
