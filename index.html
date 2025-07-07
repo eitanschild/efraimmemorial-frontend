@@ -454,6 +454,7 @@
 
   input.addEventListener('input', async () => {
     const q = input.value.trim();
+
     if (!q) {
       results.innerHTML = '';
       return;
@@ -461,40 +462,66 @@
 
     const res = await fetch('https://efraimemorial-production.up.railway.app/api/search?q=' + encodeURIComponent(q));
     const data = await res.json();
-
     results.innerHTML = '';
 
+    // Highlight helper
+    const highlight = (text) => {
+      const regex = new RegExp(`(${q})`, 'gi');
+      return text.replace(regex, '<mark class="bg-yellow-300">$1</mark>');
+    };
+
+    // Snippet extractor (around match)
+    const getSnippet = (text) => {
+      const lower = text.toLowerCase();
+      const index = lower.indexOf(q.toLowerCase());
+      if (index === -1) return '';
+      const start = Math.max(0, index - 30);
+      const end = Math.min(text.length, index + 70);
+      return '...' + highlight(text.substring(start, end)) + '...';
+    };
+
+    // ---- KTAVIM ----
     if (data.ktavim.length) {
       results.innerHTML += `
         <div>
           <h3 class="text-xl font-bold text-blue-900 mb-2">✍️ כתבים</h3>
           <ul class="space-y-3">
             ${data.ktavim.map(k => `
-              <li class="bg-white p-4 rounded-xl shadow">${k.title}</li>
+              <li class="bg-white p-4 rounded-xl shadow text-right">
+                <a href="ktavim.html#${encodeURIComponent(k.title)}" class="text-blue-800 font-semibold hover:underline text-lg block">${k.title}</a>
+                <p class="text-sm text-gray-700 mt-1">${getSnippet(k.content)}</p>
+              </li>
             `).join('')}
           </ul>
         </div>`;
     }
 
+    // ---- MEMORIES ----
     if (data.memories.length) {
       results.innerHTML += `
         <div>
-          <h3 class="text-xl font-bold text-blue-900 mb-2">💌 זיכרונות</h3>
+          <h3 class="text-xl font-bold text-blue-900 mb-2 mt-8">💌 זיכרונות</h3>
           <ul class="space-y-3">
             ${data.memories.map(m => `
-              <li class="bg-white p-4 rounded-xl shadow"><strong>${m.name}</strong>: ${m.message}</li>
+              <li class="bg-white p-4 rounded-xl shadow text-right">
+                <span class="font-bold">${m.name}</span>
+                <p class="text-sm text-gray-700 mt-1">${getSnippet(m.message)}</p>
+              </li>
             `).join('')}
           </ul>
         </div>`;
     }
 
+    // ---- VIDEOS ----
     if (data.videos.length) {
       results.innerHTML += `
         <div>
-          <h3 class="text-xl font-bold text-blue-900 mb-2">🎥 סרטונים</h3>
+          <h3 class="text-xl font-bold text-blue-900 mb-2 mt-8">🎥 סרטונים</h3>
           <ul class="space-y-3">
             ${data.videos.map(v => `
-              <li class="bg-white p-4 rounded-xl shadow">${v.title}</li>
+              <li class="bg-white p-4 rounded-xl shadow text-right">
+                <a href="videos.html" class="text-blue-800 font-semibold hover:underline block">${highlight(v.title)}</a>
+              </li>
             `).join('')}
           </ul>
         </div>`;
