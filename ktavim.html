@@ -76,10 +76,11 @@
   
       // ✅ Wait until DOM is fully painted before scrolling
       setTimeout(() => {
-        const anchor = decodeURIComponent(window.location.hash.slice(1));
-        const target = document.getElementById(anchor);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+         const anchor = decodeURIComponent(window.location.hash.slice(1));
+         const target = document.getElementById(anchor);
+         if (target) {
+            const y = target.getBoundingClientRect().top + window.scrollY - 100;
+            window.scrollTo({ top: y, behavior: 'smooth' });
         }
       }, 300); // slight delay guarantees smooth scroll after render
     }
