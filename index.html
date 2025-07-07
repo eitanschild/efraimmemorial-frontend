@@ -459,7 +459,7 @@
       return;
     }
 
-    const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+    const res = await fetch('https://efraimemorial-production.up.railway.app/api/search?q=' + encodeURIComponent(q));
     const data = await res.json();
 
     results.innerHTML = '';
