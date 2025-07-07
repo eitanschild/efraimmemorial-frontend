@@ -53,66 +53,39 @@
 
   <script>
     async function loadAllKtavim() {
-      const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
-      const ktavim = await res.json();
-      const container = document.getElementById('ktavimFullContainer');
-      container.innerHTML = '';
+  const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
+  const ktavim = await res.json();
+  const container = document.getElementById('ktavimFullContainer');
+  container.innerHTML = '';
 
-      if (!ktavim.length) {
-        container.innerHTML = '<p class="text-center text-gray-600">אין עדיין כתבים להצגה.</p>';
-        return;
-      }
-      ktavim.reverse().forEach(k => {
-        const div = document.createElement('div');
-        div.className = 'ktav-card p-6 rounded-xl shadow';
-        div.id = encodeURIComponent(k.title); // 👈 this makes the כתבים linkable by title
-        div.innerHTML = `
-          <h3 class="text-xl font-bold text-gray-800 mb-3">${k.title}</h3>
-          <p class="text-lg text-gray-700 leading-relaxed whitespace-pre-line">${k.content}</p>
-        `;
-        container.appendChild(div);
-      });
+  if (!ktavim.length) {
+    container.innerHTML = '<p class="text-center text-gray-600">אין עדיין כתבים להצגה.</p>';
+    return;
+  }
 
-    }
+  ktavim.reverse().forEach(k => {
+    const div = document.createElement('div');
+    div.className = 'ktav-card p-6 rounded-xl shadow';
+    div.id = k.title; // ✅ Use raw title — Hebrew is valid in IDs
+    div.innerHTML = `
+      <h3 class="text-xl font-bold text-gray-800 mb-3">${k.title}</h3>
+      <p class="text-lg text-gray-700 leading-relaxed whitespace-pre-line">${k.content}</p>
+    `;
+    container.appendChild(div);
+  });
 
-    async function loadAllKtavim() {
-     const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
-     const ktavim = await res.json();
-     const container = document.getElementById('ktavimFullContainer');
-     container.innerHTML = '';
+  // ✅ Scroll to anchor AFTER rendering
+  const anchor = window.location.hash.slice(1);
+  if (anchor) {
+    setTimeout(() => {
+      const el = document.getElementById(anchor);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }
+}
 
-      if (!ktavim.length) {
-        container.innerHTML = '<p class="text-center text-gray-600">אין עדיין כתבים להצגה.</p>';
-        return;
-      }
+loadAllKtavim();
 
-     ktavim.reverse().forEach(k => {
-        const div = document.createElement('div');
-        div.className = 'ktav-card p-6 rounded-xl shadow';
-        div.id = encodeURIComponent(k.title); // ✨ make it scrollable
-        div.innerHTML = `
-         <h3 class="text-xl font-bold text-gray-800 mb-3">${k.title}</h3>
-         <p class="text-lg text-gray-700 leading-relaxed whitespace-pre-line">${k.content}</p>
-       `;
-       container.appendChild(div);
-      });
-
-      // 🔥 Scroll to anchor after all כתבים are rendered
-      const anchor = decodeURIComponent(window.location.hash.slice(1));
-      if (anchor) {
-       const scrollToAnchor = () => {
-          const el = document.getElementById(encodeURIComponent(anchor));
-         if (el) {
-           el.scrollIntoView({ behavior: 'smooth' });
-         } else {
-           setTimeout(scrollToAnchor, 100); // Retry if not ready yet
-         }
-       };
-       scrollToAnchor();
-      }
-    }
-
-    loadAllKtavim();
 
 
 </script>
