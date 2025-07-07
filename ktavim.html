@@ -57,35 +57,36 @@
       const ktavim = await res.json();
       const container = document.getElementById('ktavimFullContainer');
       container.innerHTML = '';
-
+  
       if (!ktavim.length) {
-       container.innerHTML = '<p class="text-center text-gray-600">אין עדיין כתבים להצגה.</p>';
-       return;
+        container.innerHTML = '<p class="text-center text-gray-600">אין עדיין כתבים להצגה.</p>';
+        return;
       }
-
+  
       ktavim.reverse().forEach(k => {
         const div = document.createElement('div');
         div.className = 'ktav-card p-6 rounded-xl shadow';
-       div.id = k.title; // ✅ Use raw title — Hebrew is valid in IDs
-       div.innerHTML = `
-         <h3 class="text-xl font-bold text-gray-800 mb-3">${k.title}</h3>
-         <p class="text-lg text-gray-700 leading-relaxed whitespace-pre-line">${k.content}</p>
-       `;
-       container.appendChild(div);
+        div.id = k.title; // ✅ Hebrew ID is valid and needed for anchor
+        div.innerHTML = `
+          <h3 class="text-xl font-bold text-gray-800 mb-3">${k.title}</h3>
+          <p class="text-lg text-gray-700 leading-relaxed whitespace-pre-line">${k.content}</p>
+        `;
+        container.appendChild(div);
       });
-
-      // ✅ Scroll to anchor AFTER rendering
-      const anchor = window.location.hash.slice(1);
-    if (anchor) {
-       setTimeout(() => {
-         const el = document.getElementById(anchor);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-     }
+  
+      // ✅ Wait until DOM is fully painted before scrolling
+      setTimeout(() => {
+        const anchor = decodeURIComponent(window.location.hash.slice(1));
+        const target = document.getElementById(anchor);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 300); // slight delay guarantees smooth scroll after render
     }
-
+  
     loadAllKtavim();
-</script>
+  </script>
+  
 
 </body>
 </html>
