@@ -44,8 +44,20 @@
     <a href="/login.html" title="כניסת מנהל" class="text-sm text-gray-500 hidden md:inline hover:text-gray-700 transition">
       לזכרו של אפרים יכמן ז"ל
     </a>
+    <button id="searchToggle" class="text-white text-xl hover:text-blue-200 transition">
+      🔍
+    </button>    
   </div>
 </nav>
+
+<!-- Search Bar Dropdown -->
+<div id="searchBarContainer" class="bg-blue-100 px-4 py-6 hidden">
+  <div class="max-w-4xl mx-auto">
+    <input type="text" id="globalSearch" placeholder="חיפוש בכל האתר..."
+      class="w-full p-3 text-right rounded-lg border border-blue-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
+  </div>
+  <div id="searchResults" class="max-w-4xl mx-auto mt-6 space-y-8"></div>
+</div>
 
 <!-- Hero -->
 <section class="relative h-[70vh] sm:h-[90vh] bg-cover bg-center" style="background-image: url('https://efraimemorial-production.up.railway.app/uploads/hero-bg.jpg'); background-position: center top;">
@@ -427,3 +439,68 @@
     </a>
   </div>
 </section>
+
+<!-- Global Search Script -->
+<script>
+  const searchToggle = document.getElementById('searchToggle');
+  const searchBar = document.getElementById('searchBarContainer');
+  const input = document.getElementById('globalSearch');
+  const results = document.getElementById('searchResults');
+
+  searchToggle.addEventListener('click', () => {
+    searchBar.classList.toggle('hidden');
+    input.focus();
+  });
+
+  input.addEventListener('input', async () => {
+    const q = input.value.trim();
+    if (!q) {
+      results.innerHTML = '';
+      return;
+    }
+
+    const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+    const data = await res.json();
+
+    results.innerHTML = '';
+
+    if (data.ktavim.length) {
+      results.innerHTML += `
+        <div>
+          <h3 class="text-xl font-bold text-blue-900 mb-2">✍️ כתבים</h3>
+          <ul class="space-y-3">
+            ${data.ktavim.map(k => `
+              <li class="bg-white p-4 rounded-xl shadow">${k.title}</li>
+            `).join('')}
+          </ul>
+        </div>`;
+    }
+
+    if (data.memories.length) {
+      results.innerHTML += `
+        <div>
+          <h3 class="text-xl font-bold text-blue-900 mb-2">💌 זיכרונות</h3>
+          <ul class="space-y-3">
+            ${data.memories.map(m => `
+              <li class="bg-white p-4 rounded-xl shadow"><strong>${m.name}</strong>: ${m.message}</li>
+            `).join('')}
+          </ul>
+        </div>`;
+    }
+
+    if (data.videos.length) {
+      results.innerHTML += `
+        <div>
+          <h3 class="text-xl font-bold text-blue-900 mb-2">🎥 סרטונים</h3>
+          <ul class="space-y-3">
+            ${data.videos.map(v => `
+              <li class="bg-white p-4 rounded-xl shadow">${v.title}</li>
+            `).join('')}
+          </ul>
+        </div>`;
+    }
+  });
+</script>
+</body>
+</html>
+
