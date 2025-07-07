@@ -61,18 +61,35 @@
         return;
       }
 
-      memories.reverse().forEach(mem => {
+      memories.reverse().forEach((mem, i) => {
         const div = document.createElement('div');
         div.className = 'bg-white p-6 rounded-xl shadow';
+        div.id = 'memory-' + i;  // 👈 Add this line for linking
+
         div.innerHTML = `
           <p class="text-lg leading-relaxed mb-4 whitespace-pre-line">${mem.message}</p>
           <p class="text-sm text-gray-600 text-left">– ${mem.name}</p>
         `;
         container.appendChild(div);
       });
+
     }
 
     loadMemories();
+    // After loading, scroll to memory anchor if needed
+const anchor = decodeURIComponent(window.location.hash.slice(1));
+if (anchor) {
+  const scrollToAnchor = () => {
+    const el = document.getElementById(anchor);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      setTimeout(scrollToAnchor, 100); // Wait and retry if not yet rendered
+    }
+  };
+  scrollToAnchor();
+}
+
   </script>
 
 </body>

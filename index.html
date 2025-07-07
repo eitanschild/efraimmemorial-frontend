@@ -499,18 +499,19 @@
     // ---- MEMORIES ----
     if (data.memories.length) {
       results.innerHTML += `
-        <div>
+       <div>
           <h3 class="text-xl font-bold text-blue-900 mb-2 mt-8">💌 זיכרונות</h3>
           <ul class="space-y-3">
-            ${data.memories.map(m => `
-              <li class="bg-white p-4 rounded-xl shadow text-right">
-                <span class="font-bold">${m.name}</span>
-                <p class="text-sm text-gray-700 mt-1">${getSnippet(m.message)}</p>
-              </li>
+            ${data.memories.map((m, i) => `
+             <li class="bg-white p-4 rounded-xl shadow text-right">
+               <a href="memories.html#memory-${i}" class="font-bold text-blue-800 hover:underline">${m.name}</a>
+               <p class="text-sm text-gray-700 mt-1">${getSnippet(m.message)}</p>
+             </li>
             `).join('')}
           </ul>
-        </div>`;
-    }
+       </div>`;
+}
+
 
     // ---- VIDEOS ----
     if (data.videos.length) {
