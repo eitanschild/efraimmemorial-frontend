@@ -33,22 +33,38 @@
 
 <!-- Navbar -->
 <nav class="bg-white/80 backdrop-blur-md border-b border-gray-300 shadow-sm sticky top-0 z-50">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-    <div class="flex flex-wrap gap-4 sm:gap-6 text-blue-900 font-bold text-sm sm:text-base md:text-lg">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+
+    <!-- Left side: title + search -->
+    <div class="flex items-center gap-4">
+      <button id="searchToggle" class="text-blue-900 text-xl focus:outline-none">
+        🔍
+      </button>
+      <span class="text-blue-900 font-bold text-lg sm:text-xl">לזכרו של אפרים יכמן ז״ל</span>
+    </div>
+
+    <!-- Right side: nav -->
+    <div class="hidden md:flex gap-4 text-blue-900 font-bold text-sm sm:text-base">
       <a href="index.html" class="hover:text-blue-700">דף הבית</a>
       <a href="ktavim.html" class="hover:text-blue-700">כתבי אפרים</a>
       <a href="memories.html" class="hover:text-blue-700">מכתבים וזכרונות</a>
       <a href="gallery.html" class="hover:text-blue-700">גלריה</a>
       <a href="videos.html" class="hover:text-blue-700">סרטונים</a>
-      <button id="searchToggle" class="text-blue-900 hover:text-blue-200 transition" aria-label="חיפוש">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 sm:w-7 sm:h-7 fill-current" viewBox="0 0 24 24">
-          <path d="M21.53 20.47l-4.76-4.76a8 8 0 10-1.06 1.06l4.76 4.76a.75.75 0 101.06-1.06zM10.5 17a6.5 6.5 0 110-13 6.5 6.5 0 010 13z"/>
-        </svg>
-      </button>      
     </div>
-    <a href="/login.html" title="כניסת מנהל" class="text-sm text-gray-500 hidden md:inline hover:text-gray-700 transition">
-      לזכרו של אפרים יכמן ז"ל
-    </a>    
+
+    <!-- Mobile menu button -->
+    <div class="md:hidden">
+      <button id="menuToggle" class="text-blue-900 text-xl focus:outline-none">☰</button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobileMenu" class="hidden flex-col items-end gap-3 px-4 pb-4 text-blue-900 font-bold text-sm sm:text-base md:hidden">
+    <a href="index.html" class="hover:text-blue-700">דף הבית</a>
+    <a href="ktavim.html" class="hover:text-blue-700">כתבי אפרים</a>
+    <a href="memories.html" class="hover:text-blue-700">מכתבים וזכרונות</a>
+    <a href="gallery.html" class="hover:text-blue-700">גלריה</a>
+    <a href="videos.html" class="hover:text-blue-700">סרטונים</a>
   </div>
 </nav>
 
@@ -531,6 +547,16 @@
     }
   });
 </script>
+
+<script>
+  const menuBtn = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+
 </body>
 </html>
 
