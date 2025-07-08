@@ -33,18 +33,15 @@
 
 <!-- Navbar -->
 <nav class="bg-white/80 backdrop-blur-md border-b border-gray-300 shadow-sm sticky top-0 z-50">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-
-    <!-- Left side: title + search -->
-    <div class="flex items-center gap-4">
-      <button id="searchToggle" class="text-blue-900 text-xl focus:outline-none">
-        🔍
-      </button>
-      <span class="text-blue-900 font-bold text-lg sm:text-xl">לזכרו של אפרים יכמן ז״ל</span>
+  <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+    
+    <!-- Right side: nav toggle button -->
+    <div class="md:hidden">
+      <button id="menuToggle" class="text-blue-900 text-2xl focus:outline-none">☰</button>
     </div>
 
-    <!-- Right side: nav -->
-    <div class="hidden md:flex gap-4 text-blue-900 font-bold text-sm sm:text-base">
+    <!-- Center: nav links (desktop only) -->
+    <div class="hidden md:flex gap-6 text-blue-900 font-bold text-sm sm:text-base">
       <a href="index.html" class="hover:text-blue-700">דף הבית</a>
       <a href="ktavim.html" class="hover:text-blue-700">כתבי אפרים</a>
       <a href="memories.html" class="hover:text-blue-700">מכתבים וזכרונות</a>
@@ -52,14 +49,18 @@
       <a href="videos.html" class="hover:text-blue-700">סרטונים</a>
     </div>
 
-    <!-- Mobile menu button -->
-    <div class="md:hidden">
-      <button id="menuToggle" class="text-blue-900 text-xl focus:outline-none">☰</button>
+    <!-- Left side: search icon -->
+    <div>
+      <button id="searchToggle" class="text-blue-900 text-xl focus:outline-none" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />
+        </svg>
+      </button>
     </div>
   </div>
 
-  <!-- Mobile Dropdown Menu -->
-  <div id="mobileMenu" class="hidden flex-col items-end gap-3 px-4 pb-4 text-blue-900 font-bold text-sm sm:text-base md:hidden">
+  <!-- Mobile dropdown nav -->
+  <div id="mobileMenu" class="hidden flex-col items-end gap-4 px-6 pb-4 text-blue-900 font-bold text-base md:hidden">
     <a href="index.html" class="hover:text-blue-700">דף הבית</a>
     <a href="ktavim.html" class="hover:text-blue-700">כתבי אפרים</a>
     <a href="memories.html" class="hover:text-blue-700">מכתבים וזכרונות</a>
@@ -549,10 +550,10 @@
 </script>
 
 <script>
-  const menuBtn = document.getElementById('menuToggle');
+  const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobileMenu');
 
-  menuBtn.addEventListener('click', () => {
+  menuToggle.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
   });
 </script>
