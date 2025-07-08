@@ -15,15 +15,21 @@
       background-repeat: repeat;
     }
   
-    .tab-btn.active {
-      background-color: #1e3a8a !important; /* Tailwind bg-blue-900 */
+    .tab-btn {
+      transition: background-color 0.2s ease;
+    }
+  
+    .tab-btn:not(.bg-blue-900):hover {
+      background-color: #e5e7eb !important; /* Tailwind's bg-gray-200 */
+    }
+  
+    .tab-btn.bg-blue-900 {
       color: white !important;
       font-weight: bold;
     }
   
-    .tab-btn.active:hover {
-      background-color: #1e3a8a !important;
-      color: white !important;
+    .tab-btn.bg-blue-900:hover {
+      background-color: #1e3a8a !important; /* Tailwind's bg-blue-900 */
     }
   </style>  
 </head>
