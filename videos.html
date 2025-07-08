@@ -14,10 +14,18 @@
       background-image: url('https://www.transparenttextures.com/patterns/white-wall.png');
       background-repeat: repeat;
     }
+  
     .tab-btn.active {
-      background-color: #cbd5e1 !important;
+      background-color: #1e3a8a !important; /* Tailwind bg-blue-900 */
+      color: white !important;
+      font-weight: bold;
     }
-  </style>
+  
+    .tab-btn.active:hover {
+      background-color: #1e3a8a !important;
+      color: white !important;
+    }
+  </style>  
 </head>
 <body class="text-gray-800">
 
@@ -83,12 +91,12 @@
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => {
-          b.classList.remove('bg-blue-900', 'text-white');
+          b.classList.remove('bg-blue-900', 'text-white', 'font-bold');
           b.classList.add('bg-gray-100', 'text-gray-800');
         });
   
         btn.classList.remove('bg-gray-100', 'text-gray-800');
-        btn.classList.add('bg-blue-900', 'text-white');
+        btn.classList.add('bg-blue-900', 'text-white', 'font-bold');
   
         sections.forEach(s => s.classList.add('hidden', 'opacity-0', 'pointer-events-none'));
         const show = document.getElementById(btn.dataset.tab);
@@ -101,7 +109,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       buttons[0].click();
     });
-  </script>  
+  </script>
   
   
 
