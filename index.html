@@ -569,7 +569,7 @@
     input?.addEventListener('input', async () => {
       const query = input.value.trim();
       if (!query) return resultsContainer.innerHTML = '';
-      const res = await fetch('/api/search?q=' + encodeURIComponent(query));
+      const res = await fetch('https://efraimemorial-production.up.railway.app/api/search?q=' + encodeURIComponent(query));
       const data = await res.json();
       renderResults(data, query);
     });
