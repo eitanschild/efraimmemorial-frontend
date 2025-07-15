@@ -486,30 +486,25 @@
   const desktopInput = document.getElementById('desktopSearchInput');
   const mobileInput = document.getElementById('mobileSearchInput');
   const resultsContainer = document.getElementById('searchResults');
-  const menuToggle = document.getElementById('menuToggle');
-  const navLinks = document.getElementById('navLinks');
 
-  menuToggle?.addEventListener('click', () => {
-   navLinks.classList.toggle('hidden');
-   mobileDropdown.classList.add('hidden'); // close search if open
-  });
-  
+  // Toggle dropdowns
   desktopBtn?.addEventListener('click', () => {
     desktopDropdown.classList.toggle('hidden');
     mobileDropdown.classList.add('hidden');
     desktopInput?.focus();
   });
-  
+
   mobileBtn?.addEventListener('click', () => {
     mobileDropdown.classList.toggle('hidden');
     desktopDropdown.classList.add('hidden');
     mobileInput?.focus();
   });
-  
+
+  // Render results
   function renderResults(data, query) {
     const highlight = (text) =>
       text.replace(new RegExp(`(${query})`, 'gi'), '<mark class="bg-yellow-300">$1</mark>');
-  
+
     const getSnippet = (text) => {
       const index = text.toLowerCase().indexOf(query.toLowerCase());
       if (index === -1) return '';
@@ -517,9 +512,9 @@
       const end = Math.min(text.length, index + 70);
       return '...' + highlight(text.substring(start, end)) + '...';
     };
-  
+
     resultsContainer.innerHTML = '';
-  
+
     if (data.ktavim?.length) {
       resultsContainer.innerHTML += `
         <div>
@@ -534,7 +529,7 @@
           </ul>
         </div>`;
     }
-  
+
     if (data.memories?.length) {
       resultsContainer.innerHTML += `
         <div>
@@ -549,7 +544,7 @@
           </ul>
         </div>`;
     }
-  
+
     if (data.videos?.length) {
       resultsContainer.innerHTML += `
         <div>
@@ -564,17 +559,23 @@
         </div>`;
     }
   }
-  
+
+  // Shared input logic
   [desktopInput, mobileInput].forEach(input => {
     input?.addEventListener('input', async () => {
       const query = input.value.trim();
-      if (!query) return resultsContainer.innerHTML = '';
+      if (!query) {
+        resultsContainer.innerHTML = '';
+        return;
+      }
+
       const res = await fetch('https://efraimemorial-production.up.railway.app/api/search?q=' + encodeURIComponent(query));
       const data = await res.json();
       renderResults(data, query);
     });
   });
-  </script>
+</script>
+
 </body>
 </html>
 
