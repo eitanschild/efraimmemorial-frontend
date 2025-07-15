@@ -486,6 +486,13 @@
   const desktopInput = document.getElementById('desktopSearchInput');
   const mobileInput = document.getElementById('mobileSearchInput');
   const resultsContainer = document.getElementById('searchResults');
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  menuToggle?.addEventListener('click', () => {
+   navLinks.classList.toggle('hidden');
+   mobileDropdown.classList.add('hidden'); // close search if open
+  });
   
   desktopBtn?.addEventListener('click', () => {
     desktopDropdown.classList.toggle('hidden');
@@ -568,30 +575,6 @@
     });
   });
   </script>
-  
-
-<script>
-  const menuToggle = document.getElementById('menuToggle');
-  const navLinks = document.getElementById('navLinks');
-
- menuToggle?.addEventListener('click', () => {
-   navLinks.classList.toggle('hidden');
-   mobileDropdown.classList.add('hidden'); // close search if open
-  });
-
-  desktopBtn?.addEventListener('click', () => {
-    desktopDropdown.classList.toggle('hidden');
-    mobileDropdown.classList.add('hidden');
-  });
-
-  mobileBtn?.addEventListener('click', () => {
-    mobileDropdown.classList.toggle('hidden');
-    navLinks.classList.add('hidden'); // close menu if open
-  });
-</script>
-
-
-
 </body>
 </html>
 
