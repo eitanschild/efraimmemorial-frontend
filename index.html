@@ -35,18 +35,21 @@
 <nav class="bg-white/80 backdrop-blur-md border-b border-gray-300 shadow-sm sticky top-0 z-50">
   <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between relative">
 
-    <!-- Mobile: menu toggle on right -->
+    <!-- Mobile: ☰ menu -->
     <button id="menuToggle" class="md:hidden text-xl font-bold text-blue-900">☰</button>
 
-    <!-- Mobile: center title -->
+    <!-- Mobile: Centered לזכרו -->
     <a href="login.html"
-    class="md:hidden absolute left-1/2 -translate-x-1/2 font-bold text-blue-900 hover:text-blue-700 text-sm sm:text-base whitespace-nowrap">
-   לזכרו של אפרים יכמן
+       class="md:hidden absolute left-1/2 -translate-x-1/2 font-bold text-blue-900 hover:text-blue-700 text-sm sm:text-base whitespace-nowrap">
+      לזכרו של אפרים יכמן
     </a>
 
-    <!-- Desktop: full nav and left side -->
-    <div class="hidden md:flex justify-between items-center w-full">
+    <!-- Mobile: Search icon -->
+    <button id="searchToggle" class="md:hidden text-xl hover:text-blue-700 text-blue-900">🔍</button>
 
+    <!-- Desktop: Nav + לזכרו + search -->
+    <div class="hidden md:flex items-center justify-between w-full">
+      
       <!-- Right: nav links -->
       <div class="flex gap-6 text-blue-900 font-bold text-sm sm:text-base md:text-lg">
         <a href="index.html" class="hover:text-blue-700">דף הבית</a>
@@ -56,18 +59,15 @@
         <a href="videos.html" class="hover:text-blue-700">סרטונים</a>
       </div>
 
-      <!-- Left section for desktop and shared items -->
+      <!-- Left: לזכרו + search -->
       <div class="flex items-center gap-4">
-       <button id="searchToggle" class="text-xl hover:text-blue-700 text-blue-900 block md:block ml-2 md:ml-0">🔍</button>
-       <a href="login.html"
-          class="font-bold text-blue-900 hover:text-blue-700 whitespace-nowrap hidden md:inline">
-         לזכרו של אפרים יכמן
-       </a>
+        <a href="login.html" class="font-bold text-blue-900 hover:text-blue-700 whitespace-nowrap">לזכרו של אפרים יכמן</a>
+        <button id="searchToggle" class="text-xl hover:text-blue-700 text-blue-900">🔍</button>
       </div>
-     </div>
+    </div>
   </div>
 
-  <!-- Mobile dropdown nav -->
+  <!-- Mobile dropdown menu -->
   <div id="navLinks" class="md:hidden hidden flex-col bg-white text-blue-900 font-bold text-sm sm:text-base shadow-md px-4 pb-4 space-y-2">
     <a href="index.html" class="block hover:text-blue-700">דף הבית</a>
     <a href="ktavim.html" class="block hover:text-blue-700">כתבי אפרים</a>
@@ -76,7 +76,6 @@
     <a href="videos.html" class="block hover:text-blue-700">סרטונים</a>
   </div>
 </nav>
-
 
 
 <!-- Search Bar Dropdown -->
