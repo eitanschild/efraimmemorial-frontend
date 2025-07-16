@@ -480,6 +480,16 @@
 </section>
 
 <script>
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  menuToggle?.addEventListener('click', () => {
+    navLinks.classList.toggle('hidden');
+  });
+</script>
+
+
+<script>
   const desktopBtn = document.getElementById('searchDesktopBtn');
   const mobileBtn = document.getElementById('searchMobileBtn');
   const desktopDropdown = document.getElementById('desktopSearchDropdown');
