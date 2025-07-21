@@ -161,28 +161,47 @@
 
 
 <script>
+  function showVideoSection(sectionId) {
+    const sections = ['ephraim', 'songs', 'hespedim'];
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (id === sectionId) {
+        el.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+        el.classList.add('block', 'opacity-100');
+      } else {
+        el.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+        el.classList.remove('block', 'opacity-100');
+      }
+    });
+  }
+
   async function scrollToVideoSectionAfterLoad() {
     const hash = window.location.hash.slice(1);
     if (!hash) return;
 
-    const sectionId = hash + 'Videos';
-    const tryScroll = () => {
-      const el = document.getElementById(sectionId);
+    const containerId = hash + 'Videos';
+
+    // 1. Reveal the section
+    showVideoSection(hash);
+
+    // 2. Wait for visibility change to render
+    setTimeout(() => {
+      const el = document.getElementById(containerId);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       } else {
-        console.warn('Section not found:', sectionId);
+        console.warn('❌ No element found for', containerId);
       }
-    };
-
-    // give layout time to fully finish
-    setTimeout(tryScroll, 100);
+    }, 200); // 200ms delay for visibility change to take effect
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    loadVideos().then(scrollToVideoSectionAfterLoad);
+    loadVideos().then(() => {
+      scrollToVideoSectionAfterLoad();
+    });
   });
 </script>
+
 
 
 
