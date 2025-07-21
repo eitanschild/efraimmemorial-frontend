@@ -164,16 +164,22 @@
 </script>
 
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
+  async function scrollToVideoSectionAfterLoad() {
+    await new Promise(resolve => setTimeout(resolve, 100)); // tiny delay to let layout settle
     const hash = window.location.hash.slice(1);
-    if (hash) {
-      const el = document.getElementById(hash + 'Videos');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+    if (!hash) return;
+
+    const target = document.getElementById(hash + 'Videos');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    loadVideos().then(scrollToVideoSectionAfterLoad);
   });
 </script>
+
 
 </body>
 </html>
