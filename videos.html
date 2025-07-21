@@ -163,6 +163,17 @@
   window.addEventListener('DOMContentLoaded', loadVideos);
 </script>
 
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const el = document.getElementById(hash + 'Videos');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
