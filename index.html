@@ -564,7 +564,7 @@ async function loadKtavim() {
           <ul class="space-y-3">
             ${data.videos.map(v => `
               <li class="bg-white p-4 rounded-xl shadow text-right">
-                <a href="videos.html" class="text-blue-800 font-semibold hover:underline block">${highlight(v.title)}</a>
+                <a href="videos.html#${v.section}" class="text-blue-800 font-semibold hover:underline block">${highlight(v.title)}</a>
               </li>
             `).join('')}
           </ul>
