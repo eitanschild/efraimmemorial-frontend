@@ -119,9 +119,10 @@
   
   
 
-  <!-- Load Videos -->
-  <script>
-    async function loadVideos() {
+<!-- ✅ Load Videos by Section from PostgreSQL -->
+<script>
+  async function loadVideos() {
+    try {
       const res = await fetch('https://efraimemorial-production.up.railway.app/api/videos');
       const data = await res.json();
 
@@ -138,25 +139,30 @@
         div.className = 'w-full h-64 rounded-xl overflow-hidden shadow bg-black';
         div.innerHTML = `
           <iframe class="w-full h-full"
-                  src="https://www.youtube.com/embed/${video.youtubeId}"
+                  src="https://www.youtube.com/embed/${video.youtubeid}"
                   title="${video.title}"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen></iframe>
         `;
 
-        if (video.section === 'ephraim') {
+        const section = video.section?.toLowerCase();
+        if (section === 'סרטונים של אפרים' || section === 'ephraim') {
           ephraim.appendChild(div);
-        } else if (video.section === 'songs') {
+        } else if (section === 'שירים' || section === 'songs') {
           songs.appendChild(div);
-        } else if (video.section === 'hespedim') {
+        } else if (section === 'הספדים' || section === 'hespedim') {
           hespedim.appendChild(div);
         }
       });
+    } catch (err) {
+      console.error('❌ Failed to load videos:', err);
     }
+  }
 
-    window.addEventListener('DOMContentLoaded', loadVideos);
-  </script>
+  window.addEventListener('DOMContentLoaded', loadVideos);
+</script>
+
 
 </body>
 </html>
