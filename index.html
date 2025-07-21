@@ -115,37 +115,38 @@
 </section>
 
 <script>
-  async function loadKtavim() {
-    const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
-    const all = await res.json(); const ktavim = all.filter(k => k.approved);
-    const container = document.getElementById('ktavimContainer');
-    container.innerHTML = '';
+async function loadKtavim() {
+  const res = await fetch('https://efraimemorial-production.up.railway.app/api/ktavim');
+  const ktavim = await res.json();
+  const container = document.getElementById('ktavimContainer');
+  container.innerHTML = '';
 
-    if (!ktavim.length) {
-      container.innerHTML = '<p class="text-center text-gray-600">אין עדיין כתבים להצגה.</p>';
-      return;
+  if (!ktavim.length) {
+    container.innerHTML = '<p class="text-center text-gray-600">אין עדיין כתבים להצגה.</p>';
+    return;
+  }
+
+  ktavim.reverse().slice(0, 2).forEach((k, i) => {
+    const div = document.createElement('div');
+    div.className = 'bg-gray-100 p-6 rounded-xl shadow-lg';
+
+    if (i === 0) {
+      div.innerHTML = `
+        <h3 class="text-xl font-bold text-gray-800 mb-4">${k.title}</h3>
+        <p class="text-lg text-gray-700 leading-relaxed whitespace-pre-line">${k.content}</p>
+      `;
+    } else {
+      const short = k.content.length > 500 ? k.content.substring(0, 500) + "..." : k.content;
+      div.innerHTML = `
+        <h3 class="text-xl font-bold text-gray-800 mb-4">${k.title}</h3>
+        <p class="text-lg text-gray-700 leading-relaxed whitespace-pre-line" id="ktav-preview-${i}" data-expanded="false">${short}</p>
+      `;
     }
 
-    ktavim.reverse().slice(0, 2).forEach((k, i) => {
-      const div = document.createElement('div');
-      div.className = 'bg-gray-100 p-6 rounded-xl shadow-lg';
+    container.appendChild(div);
+  });
+}
 
-      if (i === 0) {
-        div.innerHTML = `
-          <h3 class="text-xl font-bold text-gray-800 mb-4">${k.title}</h3>
-          <p class="text-lg text-gray-700 leading-relaxed whitespace-pre-line">${k.content}</p>
-        `;
-      } else {
-        const short = k.content.length > 500 ? k.content.substring(0, 500) + "..." : k.content;
-        div.innerHTML = `
-          <h3 class="text-xl font-bold text-gray-800 mb-4">${k.title}</h3>
-          <p class="text-lg text-gray-700 leading-relaxed whitespace-pre-line" id="ktav-preview-${i}" data-expanded="false">${short}</p>
-        `;
-      }
-
-      container.appendChild(div);
-    });
-  }
 
   function toggleKtav(index, fullText) {
     const p = document.getElementById(`ktav-preview-${index}`);
