@@ -155,52 +155,33 @@
         }
       });
 
-      // Scroll-to-section logic on load (based on hash)
-      const hash = window.location.hash.replace('#', '') || 'ephraim';
-      showSection(hash);
+      // After loading, activate correct section + button
+      const hash = window.location.hash.replace('#', '');
+      if (hash === 'ephraim' || hash === 'songs' || hash === 'hespedim') {
+        document.querySelectorAll('.video-section').forEach(el => {
+          el.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+        });
+        document.getElementById(hash).classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+
+        // Update button highlight
+        document.querySelectorAll('#sectionTabs button').forEach(btn => {
+          btn.classList.remove('bg-blue-800', 'text-white');
+          btn.classList.add('bg-white');
+        });
+        const activeBtn = document.querySelector(`#sectionTabs button[data-section="${hash}"]`);
+        if (activeBtn) {
+          activeBtn.classList.remove('bg-white');
+          activeBtn.classList.add('bg-blue-800', 'text-white');
+        }
+      }
 
     } catch (err) {
       console.error('❌ Error loading videos:', err);
     }
   }
 
-  function showSection(section) {
-    // Show correct section
-    document.querySelectorAll('.video-section').forEach(div => {
-      div.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-      div.classList.remove('block', 'opacity-100', 'pointer-events-auto');
-    });
-    const current = document.getElementById(section);
-    if (current) {
-      current.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
-      current.classList.add('block', 'opacity-100', 'pointer-events-auto');
-    }
-
-    // Highlight correct tab button
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.classList.remove('bg-blue-800', 'text-white');
-      btn.classList.add('bg-gray-100', 'text-gray-800');
-    });
-    const activeBtn = document.querySelector(`.tab-btn[data-tab="${section}"]`);
-    if (activeBtn) {
-      activeBtn.classList.add('bg-blue-800', 'text-white');
-      activeBtn.classList.remove('bg-gray-100', 'text-gray-800');
-    }
-  }
-
-  // Allow buttons to work manually too
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const section = btn.dataset.tab;
-      window.location.hash = section;
-      showSection(section);
-    });
-  });
-
   window.addEventListener('DOMContentLoaded', loadVideos);
 </script>
-
-
 
 
 <script>
