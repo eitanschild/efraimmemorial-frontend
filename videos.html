@@ -139,18 +139,18 @@
         div.className = 'w-full h-64 rounded-xl overflow-hidden shadow bg-black';
         div.innerHTML = `
           <iframe class="w-full h-full"
-                  src="https://www.youtube.com/embed/${video.youtube_id}"
+                  src="https://www.youtube.com/embed/${video.youtubeid}"
                   title="${video.title}"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen></iframe>
         `;
 
-        if (video.category === 'ephraim') {
+        if (video.section === 'ephraim') {
           ephraim.appendChild(div);
-        } else if (video.category === 'songs') {
+        } else if (video.section === 'songs') {
           songs.appendChild(div);
-        } else if (video.category === 'hespedim') {
+        } else if (video.section === 'hespedim') {
           hespedim.appendChild(div);
         }
       });
@@ -162,7 +162,6 @@
 
   window.addEventListener('DOMContentLoaded', loadVideos);
 </script>
-
 
 
 <script>
