@@ -190,23 +190,34 @@ async function loadKtavim() {
 </section>
 
 <!-- Gallery Preview -->
-<section id="gallery" class="py-10 px-6" style="background-color: transparent;">
-  <div class="max-w-6xl mx-auto">
-    <h2 class="text-2xl md:text-4xl font-bold text-blue-900 mb-10 text-center">גלריית תמונות</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-      <img src="/static-gallery/img1.jpg" alt="תמונה 1" class="w-full h-64 object-cover rounded shadow" />
-      <img src="/static-gallery/img2.jpg" alt="תמונה 2" class="w-full h-64 object-cover rounded shadow" />
-      <img src="/static-gallery/img3.jpg" alt="תמונה 3" class="w-full h-64 object-cover rounded shadow" />
-      <img src="/static-gallery/img4.jpg" alt="תמונה 4" class="w-full h-64 object-cover rounded shadow" />
-      <img src="/static-gallery/img5.jpg" alt="תמונה 5" class="w-full h-64 object-cover rounded shadow" />
-      <img src="/static-gallery/img6.jpg" alt="תמונה 6" class="w-full h-64 object-cover rounded shadow" />
-    </div>
+<script>
+  async function loadDynamicGallery() {
+    const res = await fetch('https://efraimemorial-production.up.railway.app/api/static-gallery');
+    const images = await res.json();
 
-    <div class="text-center mt-6">
-      <a class="inline-block bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition" href="https://photos.google.com/share/AF1QipN89f_2HUaJEG2117g_mPE25zQJxm2mDoHu2Asz-xvonLtq3fdoX6TZAu4nulZiww?key=TzNSMUdpMjZpLThsd0dHNlVITTk1VkNVWG1RUVp3">לצפייה בכל התמונות</a>
-    </div>
-  </div>
-</section>
+    const container = document.getElementById('dynamicGallery');
+    container.innerHTML = '';
+
+    const limitedImages = images.slice(0, 6); // ✅ Only take first 6
+
+    if (limitedImages.length === 0) {
+      container.innerHTML = '<p class="text-center text-gray-600 col-span-3">אין עדיין תמונות בגלריה</p>';
+      return;
+    }
+
+    limitedImages.forEach((img, index) => {
+      const imageEl = document.createElement('img');
+      imageEl.src = img.url;
+      imageEl.alt = `תמונה ${index + 1}`;
+      imageEl.className = 'w-full h-64 object-cover rounded shadow';
+
+      container.appendChild(imageEl);
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', loadDynamicGallery);
+</script>
+
 
   </script>
   
