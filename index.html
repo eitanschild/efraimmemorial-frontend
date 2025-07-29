@@ -358,106 +358,48 @@ async function loadKtavim() {
   });
   </script>
   
-  <section class="py-10 px-6 bg-white">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-  
-      <!-- Upload Image Form -->
-      <div>
-        <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-6 text-center">העלה תמונה לגלריה</h2>
-        <form class="bg-gray-50 p-6 rounded-xl shadow space-y-4" enctype="multipart/form-data" id="galleryForm">
-          <input accept="image/*" class="w-full p-3 border rounded-lg bg-white" id="image" name="image" required type="file" />
-          <input class="w-full p-3 border rounded-lg" id="uploader" name="uploader" placeholder="שמך (המשלח)" required type="text" />
-          <input class="w-full p-3 border rounded-lg" id="caption" name="caption" placeholder="כיתוב לתמונה (לא חובה)" type="text" />
-          <button class="w-full bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-900/90 transition" type="submit">שלח תמונה</button>
-          <div id="galleryLoading" class="flex justify-center items-center gap-2 text-blue-600 text-center hidden">
-            <svg class="animate-spin h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-            </svg>
-            שולח תמונה...
-          </div>
-          <p class="text-green-600 text-center mt-4 hidden" id="galleryResponse">התמונה נשלחה וממתינה לאישור</p>
-          <p class="text-red-600 text-center mt-4 hidden" id="galleryError">שגיאה בהעלאת התמונה</p>
-        </form>
+<!-- Memory Submission Section -->
+<section class="py-10 px-6 bg-white">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-6 text-center">שלחו זיכרון או מכתב</h2>
+    <form class="bg-gray-50 p-6 rounded-xl shadow space-y-4" id="memoryForm">
+      <input class="w-full p-3 border rounded-lg" id="name" name="name" placeholder="שמך" required type="text" />
+      <textarea class="w-full p-3 border rounded-lg" id="message" name="message" placeholder="זיכרון או מכתב..." required rows="4"></textarea>
+      <button class="w-full bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-900 transition" type="submit">שלח זיכרון</button>
+      <div id="memoryLoading" class="flex justify-center items-center gap-2 text-blue-600 text-center hidden">
+        <svg class="animate-spin h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>
+        שולח זיכרון...
       </div>
-  
-      <!-- Submit Memory Form -->
-      <div>
-        <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-6 text-center">שלחו זיכרון או מכתב</h2>
-        <form class="bg-gray-50 p-6 rounded-xl shadow space-y-4" id="memoryForm">
-          <input class="w-full p-3 border rounded-lg" id="name" name="name" placeholder="שמך" required type="text" />
-          <textarea class="w-full p-3 border rounded-lg" id="message" name="message" placeholder="זיכרון או מכתב..." required rows="4"></textarea>
-          <button class="w-full bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-900 transition" type="submit">שלח זיכרון</button>
-          <div id="memoryLoading" class="flex justify-center items-center gap-2 text-blue-600 text-center hidden">
-            <svg class="animate-spin h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-            </svg>
-            שולח זיכרון...
-          </div>
-          <p class="text-green-600 text-center mt-4 hidden" id="memoryResponse">הזיכרון נשלח וממתין לאישור</p>
-        </form>
-      </div>
-  
-    </div>
-  </section>
-  
-  <script>
-    const galleryForm = document.getElementById('galleryForm');
-    galleryForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const file = document.getElementById('image').files[0];
-      if (!file) return;
-      if (file.size > 5 * 1024 * 1024) {
-        alert('גודל התמונה חורג מהמותר (מקסימום 5MB).');
-        return;
-      }
-      document.getElementById('galleryLoading').classList.remove('hidden');
-      const formData = new FormData();
-      formData.append('image', file);
-      formData.append('caption', document.getElementById('caption').value);
-      formData.append('uploader', document.getElementById('uploader').value);
-      try {
-        const res = await fetch('https://efraimemorial-production.up.railway.app/api/gallery', {
-          method: 'POST',
-          body: formData
-        });
-        document.getElementById('galleryLoading').classList.add('hidden');
-        if (res.ok) {
-          document.getElementById('galleryResponse').classList.remove('hidden');
-          document.getElementById('galleryError').classList.add('hidden');
-          galleryForm.reset();
-        } else {
-          document.getElementById('galleryError').classList.remove('hidden');
-          document.getElementById('galleryResponse').classList.add('hidden');
-        }
-      } catch (err) {
-        console.error('Upload error:', err);
-        document.getElementById('galleryError').classList.remove('hidden');
-        document.getElementById('galleryResponse').classList.add('hidden');
-        document.getElementById('galleryLoading').classList.add('hidden');
-      }
+      <p class="text-green-600 text-center mt-4 hidden" id="memoryResponse">הזיכרון נשלח וממתין לאישור</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const memoryForm = document.getElementById('memoryForm');
+  memoryForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.getElementById('memoryLoading').classList.remove('hidden');
+    const name = document.getElementById('name').value;
+    const message = document.getElementById('message').value;
+    const res = await fetch('https://efraimemorial-production.up.railway.app/api/memories', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, message })
     });
-  
-    const memoryForm = document.getElementById('memoryForm');
-    memoryForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      document.getElementById('memoryLoading').classList.remove('hidden');
-      const name = document.getElementById('name').value;
-      const message = document.getElementById('message').value;
-      const res = await fetch('https://efraimemorial-production.up.railway.app/api/memories', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, message })
-      });
-      document.getElementById('memoryLoading').classList.add('hidden');
-      if (res.ok) {
-        document.getElementById('memoryResponse').classList.remove('hidden');
-        memoryForm.reset();
-      } else {
-        alert('שגיאה בשליחת הזיכרון');
-      }
-    });
+    document.getElementById('memoryLoading').classList.add('hidden');
+    if (res.ok) {
+      document.getElementById('memoryResponse').classList.remove('hidden');
+      memoryForm.reset();
+    } else {
+      alert('שגיאה בשליחת הזיכרון');
+    }
+  });
+</script>
+
   </script>
   <!-- Donation Section -->
 <section class="py-16 px-6 bg-blue-50 border-t border-blue-200">
