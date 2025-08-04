@@ -66,14 +66,15 @@
         card.className = 'bg-white p-6 rounded-xl shadow hover:shadow-lg transition';
   
         card.innerHTML = `
-            <h3 class="text-xl font-bold text-blue-900 mb-2">${article.title}</h3>
-            ${article.description ? `<p class="text-gray-700 mb-4">${article.description}</p>` : ''}
-             <div class="flex justify-center mt-4">
-              <a href="${article.url}" target="_blank" class="text-white bg-blue-900 hover:bg-blue-800 py-2 px-4 rounded transition">
-                לקריאת הכתבה
-              </a>
-             </div>
+             <h3 class="text-xl font-bold text-blue-900 mb-2">${article.title}</h3>
+             ${article.description ? `<p class="text-gray-700 mb-4">${article.description}</p>` : ''}
+            <div class="text-center">
+             <a href="${article.url}" target="_blank" class="inline-block text-white bg-blue-900 hover:bg-blue-800 py-2 px-8 rounded transition">
+                  לקריאת הכתבה
+                </a>
+            </div>
         `;
+
 
   
         container.appendChild(card);
