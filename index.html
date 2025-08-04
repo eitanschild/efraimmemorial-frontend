@@ -97,7 +97,9 @@
     <a href="videos.html" class="block hover:text-blue-700">סרטונים</a>
     <a href="articles.html">כתבות</a>
   </div>
-  <div id="google_translate_element"></div>
+  <button id="custom-translate-btn" class="bg-white text-blue-900 border border-blue-900 px-3 py-1 rounded hover:bg-blue-900 hover:text-white transition">
+    English
+  </button>  
 </nav>
 
 <!-- Search Dropdowns -->
@@ -572,6 +574,38 @@ async function loadKtavim() {
     });
   });
 </script>
+<script type="text/javascript">
+  function triggerTranslateToEnglish() {
+    const googleFrame = document.querySelector('iframe.goog-te-banner-frame');
+    if (googleFrame) return; // already translated
+
+    const script = document.createElement('script');
+    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    document.head.appendChild(script);
+
+    window.googleTranslateElementInit = function () {
+      new google.translate.TranslateElement({
+        pageLanguage: 'he',
+        includedLanguages: 'en',
+        autoDisplay: false
+      }, 'hidden_translate_element');
+
+      setTimeout(() => {
+        const select = document.querySelector('.goog-te-combo');
+        if (select) {
+          select.value = 'en';
+          select.dispatchEvent(new Event('change'));
+        }
+      }, 500);
+    };
+  }
+
+  document.getElementById('custom-translate-btn').addEventListener('click', triggerTranslateToEnglish);
+</script>
+
+<!-- hidden container required for Google Translate to work -->
+<div id="hidden_translate_element" style="display: none;"></div>
+
 
 </body>
 </html>
