@@ -227,53 +227,60 @@
 </script>
 
 
-<div id="google_translate_element" style="display:none;"></div>
+<!-- Hidden container for Google Translate -->
+<div id="google_translate_element" style="display: none;"></div>
 
-<script type="text/javascript">
-  function loadGoogleTranslateScript(callback) {
-    if (window.google && window.google.translate) {
-      callback();
-    } else {
-      const script = document.createElement("script");
-      script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      document.head.appendChild(script);
-      window.googleTranslateElementInit = callback;
+<script>
+  let isTranslationInitialized = false;
+
+  function applyTranslation(lang) {
+    const combo = document.querySelector('.goog-te-combo');
+    if (combo) {
+      combo.value = lang;
+      combo.dispatchEvent(new Event('change'));
     }
   }
 
-  function translateTo(lang) {
-    const select = document.querySelector('.goog-te-combo');
-    if (select) {
-      select.value = lang;
-      select.dispatchEvent(new Event('change'));
-    }
+  function initGoogleTranslate() {
+    if (isTranslationInitialized) return;
+    isTranslationInitialized = true;
+
+    window.googleTranslateElementInit = function () {
+      new google.translate.TranslateElement({
+        pageLanguage: 'he',
+        includedLanguages: 'en',
+        autoDisplay: false
+      }, 'google_translate_element');
+
+      // Apply saved language after the widget is ready
+      const interval = setInterval(() => {
+        const savedLang = localStorage.getItem('preferredLang');
+        const combo = document.querySelector('.goog-te-combo');
+        if (combo && savedLang) {
+          applyTranslation(savedLang);
+          clearInterval(interval);
+        }
+      }, 300);
+    };
+
+    const script = document.createElement('script');
+    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    document.head.appendChild(script);
   }
 
-  // 1. Check if user previously selected English
-  const savedLang = localStorage.getItem("selectedLang");
+  document.addEventListener('DOMContentLoaded', () => {
+    initGoogleTranslate();
 
-  // 2. Init translate widget and apply saved language
-  loadGoogleTranslateScript(() => {
-    new google.translate.TranslateElement({
-      pageLanguage: 'he',
-      includedLanguages: 'en',
-      autoDisplay: false
-    }, 'google_translate_element');
-
-    if (savedLang === "en") {
-      setTimeout(() => translateTo("en"), 500);
+    const btn = document.getElementById('custom-translate-btn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        localStorage.setItem('preferredLang', 'en');
+        applyTranslation('en');
+      });
     }
   });
-
-  // 3. Optional: Button to activate translation (only include this where you want the button)
-  const enBtn = document.getElementById('custom-translate-btn');
-  if (enBtn) {
-    enBtn.addEventListener('click', () => {
-      localStorage.setItem("selectedLang", "en");
-      translateTo("en");
-    });
-  }
 </script>
+
 
 
 
