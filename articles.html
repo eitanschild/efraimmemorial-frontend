@@ -83,7 +83,7 @@
   
     loadArticles();
   </script>  
-  
+
 <!-- Hidden container for Google Translate -->
 <div id="google_translate_element" style="display: none;"></div>
 
@@ -101,7 +101,7 @@
   function updateButtonLabel(lang) {
     const btn = document.getElementById('custom-translate-btn');
     if (!btn) return;
-    btn.textContent = lang === 'he' ? 'En' : 'עב';
+    btn.textContent = lang === 'he' ? 'EN' : 'HE';
   }
 
   function initGoogleTranslate() {
@@ -143,12 +143,20 @@
         const currentLang = localStorage.getItem('language') || 'he';
         const newLang = currentLang === 'he' ? 'en' : 'he';
         localStorage.setItem('language', newLang);
-        applyTranslation(newLang);
-        updateButtonLabel(newLang);
+
+        if (newLang === 'en') {
+          applyTranslation('en');
+          updateButtonLabel('en');
+        } else {
+          // Reload the page to remove Google Translate frame
+          updateButtonLabel('he');
+          location.reload();
+        }
       });
     }
   });
 </script>
+
 
 
 
