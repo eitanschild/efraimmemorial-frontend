@@ -645,6 +645,34 @@ async function loadKtavim() {
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+<script>
+  // Set or remove the Google Translate cookie
+  function setTranslateLang(lang) {
+    const expiration = new Date();
+    expiration.setTime(expiration.getTime() + (365*24*60*60*1000)); // 1 year
+    document.cookie = `googtrans=/he/${lang};expires=${expiration.toUTCString()};path=/`;
+    localStorage.setItem('lang', lang);
+    location.reload(); // reload to trigger translate
+  }
+
+  // On page load, persist language
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      setTranslateLang(savedLang);
+    }
+  });
+
+  // Button click
+  document.getElementById('custom-translate-btn').addEventListener('click', () => {
+    const current = localStorage.getItem('lang');
+    const next = current === 'en' ? 'he' : 'en';
+    setTranslateLang(next);
+  });
+</script>
+
+<div id="google_translate_element" style="display:none;"></div>
+
 </body>
 </html>
 
