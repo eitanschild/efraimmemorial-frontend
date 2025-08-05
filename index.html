@@ -637,55 +637,52 @@ async function loadKtavim() {
 <!-- Hidden container required by Google Translate -->
 <div id="google_translate_element" style="display: none;"></div>
 
-<script type="text/javascript">
-  let translationInitialized = false;
+<!-- Translate logic -->
+<script>
+  let isTranslationInitialized = false;
 
   function triggerTranslateToEnglish() {
-    if (translationInitialized) {
-      // Already loaded and initialized — just change language
-      const select = document.querySelector('.goog-te-combo');
-      if (select) {
-        select.value = 'en';
-        select.dispatchEvent(new Event('change'));
+    if (isTranslationInitialized) {
+      const combo = document.querySelector('.goog-te-combo');
+      if (combo) {
+        combo.value = 'en';
+        combo.dispatchEvent(new Event('change'));
       }
       return;
     }
 
-    // Load Google Translate script only once
     const script = document.createElement('script');
     script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
     document.head.appendChild(script);
 
-    // Init logic
     window.googleTranslateElementInit = function () {
-      translationInitialized = true;
+      isTranslationInitialized = true;
 
       new google.translate.TranslateElement({
         pageLanguage: 'he',
         includedLanguages: 'en',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
       }, 'google_translate_element');
 
-      // Try switching language after it's ready
-      setTimeout(() => {
-        const select = document.querySelector('.goog-te-combo');
-        if (select) {
-          select.value = 'en';
-          select.dispatchEvent(new Event('change'));
+      const trySwitch = setInterval(() => {
+        const combo = document.querySelector('.goog-te-combo');
+        if (combo) {
+          combo.value = 'en';
+          combo.dispatchEvent(new Event('change'));
+          clearInterval(trySwitch);
         }
-      }, 500);
+      }, 300);
     };
   }
 
-  // Attach button listener
-  document.addEventListener("DOMContentLoaded", function () {
-    const translateBtn = document.getElementById('custom-translate-btn');
-    if (translateBtn) {
-      translateBtn.addEventListener('click', triggerTranslateToEnglish);
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('custom-translate-btn');
+    if (btn) {
+      btn.addEventListener('click', triggerTranslateToEnglish);
     }
   });
 </script>
+
 
 </body>
 </html>
