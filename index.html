@@ -648,31 +648,40 @@ async function loadKtavim() {
     }
   }
 
+  function updateButtonLabel(lang) {
+    const btn = document.getElementById('custom-translate-btn');
+    if (!btn) return;
+    btn.textContent = lang === 'he' ? 'En' : 'עב';
+  }
+
   function initGoogleTranslate() {
     if (isTranslationInitialized) return;
-    isTranslationInitialized = true;
+
+    const script = document.createElement('script');
+    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    document.head.appendChild(script);
 
     window.googleTranslateElementInit = function () {
+      isTranslationInitialized = true;
+
       new google.translate.TranslateElement({
         pageLanguage: 'he',
         includedLanguages: 'en',
         autoDisplay: false
       }, 'google_translate_element');
 
-      // Apply saved language after the widget is ready
-      const interval = setInterval(() => {
-        const savedLang = localStorage.getItem('preferredLang');
+      const tryApply = setInterval(() => {
         const combo = document.querySelector('.goog-te-combo');
-        if (combo && savedLang) {
-          applyTranslation(savedLang);
-          clearInterval(interval);
+        if (combo) {
+          const savedLang = localStorage.getItem('language') || 'he';
+          if (savedLang === 'en') {
+            applyTranslation('en');
+          }
+          updateButtonLabel(savedLang);
+          clearInterval(tryApply);
         }
       }, 300);
     };
-
-    const script = document.createElement('script');
-    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-    document.head.appendChild(script);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -681,12 +690,16 @@ async function loadKtavim() {
     const btn = document.getElementById('custom-translate-btn');
     if (btn) {
       btn.addEventListener('click', () => {
-        localStorage.setItem('preferredLang', 'en');
-        applyTranslation('en');
+        const currentLang = localStorage.getItem('language') || 'he';
+        const newLang = currentLang === 'he' ? 'en' : 'he';
+        localStorage.setItem('language', newLang);
+        applyTranslation(newLang);
+        updateButtonLabel(newLang);
       });
     }
   });
 </script>
+
 
 
 </body>
