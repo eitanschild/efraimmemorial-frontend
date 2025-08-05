@@ -44,11 +44,11 @@
       100% { transform: scale(1.1); }
     }
 
-    .animate-zoom {
-      animation: zoom 30s ease-in-out infinite alternate;
+      .animate-zoom {
+    animation: zoom 30s ease-in-out infinite alternate;
     }
 
-    @keyframes fade-in {
+     @keyframes fade-in {
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
@@ -57,6 +57,7 @@
       animation: fade-in 1.2s ease-out;
     }
   </style>
+
 
   <style>
     .goog-te-banner-frame.skiptranslate {
@@ -155,9 +156,10 @@
 <!-- Hero -->
 <section class="relative h-[70vh] sm:h-[90vh] overflow-hidden">
   <!-- Animated background image with vignette -->
-  <div class="absolute inset-0 animate-zoom bg-center bg-cover"
-  style="background-image: radial-gradient(rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.75) 100%), url('https://efraimemorial-production.up.railway.app/uploads/hero-bg.jpg'); background-position: center top;">
+  <div class="absolute inset-0 animate-zoom bg-center bg-cover will-change-transform"
+    style="background-image: radial-gradient(rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.75) 100%), url('https://efraimemorial-production.up.railway.app/uploads/hero-bg.jpg'); background-position: center top;">
   </div>
+
 
   <!-- Translate Button -->
   <button id="custom-translate-btn"
