@@ -149,10 +149,10 @@
   </div>
 
   <!-- Translate Button -->
-  <button id="custom-translate-btn"
-    class="absolute top-4 left-4 bg-white text-blue-900 border border-blue-900 px-3 py-1 rounded hover:bg-blue-900 hover:text-white transition z-50 shadow-md">
+  <button onclick="setLanguage('he/en')" class="bg-white text-blue-900 border border-blue-900 px-3 py-1 rounded hover:bg-blue-900 hover:text-white transition">
     En
   </button>
+  
 
   <!-- Content -->
   <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4 sm:px-6 animate-fade-in">
@@ -618,38 +618,32 @@ async function loadKtavim() {
     });
   });
 </script>
-<script type="text/javascript">
-  function triggerTranslateToEnglish() {
-    const googleFrame = document.querySelector('iframe.goog-te-banner-frame');
-    if (googleFrame) return; // already translated
 
-    const script = document.createElement('script');
-    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-    document.head.appendChild(script);
 
-    window.googleTranslateElementInit = function () {
-      new google.translate.TranslateElement({
-        pageLanguage: 'he',
-        includedLanguages: 'en',
-        autoDisplay: false
-      }, 'hidden_translate_element');
-
-      setTimeout(() => {
-        const select = document.querySelector('.goog-te-combo');
-        if (select) {
-          select.value = 'en';
-          select.dispatchEvent(new Event('change'));
-        }
-      }, 500);
-    };
+<script>
+  function setLanguage(lang) {
+    localStorage.setItem('preferredLang', lang);
+    const baseUrl = window.location.href.split('#')[0];
+    window.location.href = `${baseUrl}#googtrans(${lang})`;
+    location.reload();
   }
 
-  document.getElementById('custom-translate-btn').addEventListener('click', triggerTranslateToEnglish);
+  document.addEventListener('DOMContentLoaded', () => {
+    const preferredLang = localStorage.getItem('preferredLang');
+    if (preferredLang && !window.location.href.includes('#googtrans')) {
+      const baseUrl = window.location.href.split('#')[0];
+      window.location.href = `${baseUrl}#googtrans(${preferredLang})`;
+    }
+  });
 </script>
 
-<!-- hidden container required for Google Translate to work -->
-<div id="hidden_translate_element" style="display: none;"></div>
-
+<div id="google_translate_element" style="display:none;"></div>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({ pageLanguage: 'he' }, 'google_translate_element');
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
